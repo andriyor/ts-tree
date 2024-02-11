@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-import { Project, SyntaxKind, ts } from 'ts-morph';
+import { CompilerOptions, Project, SourceFile, SyntaxKind, ts } from 'ts-morph';
 
 const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
@@ -66,45 +66,69 @@ export const buildTree = (data: FileInfo[]) => {
   return rootNode;
 };
 
+const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
+  const currentFilePath = sourceFile.getFilePath();
+  const baseName = sourceFile.getBaseName();
+  const fileInfo: FileInfo = {
+    path: currentFilePath,
+    name: baseName,
+    imports: [],
+  };
+  sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
+    const moduleSpecifier = importDeclaration.getModuleSpecifier();
+
+    const moduleName = trimQuotes(moduleSpecifier.getText());
+    const resolvedModuleName = ts.resolveModuleName(moduleName, currentFilePath, tsOptions, ts.sys);
+    const path = resolvedModuleName.resolvedModule?.resolvedFileName;
+    if (path) {
+      fileInfo.imports.push(path);
+    }
+  });
+  return fileInfo;
+};
+
 export const getFilesInfo = (path: string) => {
   const tsConfig = getTsConfig();
   const filesInfo: FileInfo[] = [];
   if (tsConfig) {
     const sourceFiles = project.getSourceFiles(path);
     sourceFiles.forEach((sourceFile) => {
-      const currentFilePath = sourceFile.getFilePath();
-      const baseName = sourceFile.getBaseName();
-      const fileInfo: FileInfo = {
-        path: currentFilePath,
-        name: baseName,
-        imports: [],
-      };
-      sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
-        const moduleSpecifier = importDeclaration.getModuleSpecifier();
-
-        const moduleName = trimQuotes(moduleSpecifier.getText());
-        const resolvedModuleName = ts.resolveModuleName(
-          moduleName,
-          currentFilePath,
-          tsConfig.options,
-          ts.sys,
-        );
-        const path = resolvedModuleName.resolvedModule?.resolvedFileName;
-        if (path) {
-          fileInfo.imports.push(path);
-        }
-      });
+      const fileInfo = getImports(sourceFile, tsConfig.options);
       filesInfo.push(fileInfo);
     });
   }
   return filesInfo;
 };
 
-const info = getFilesInfo('test/test-project/**/*.ts');
-console.log(info);
-const tree = buildTree(info);
-console.log(tree);
-console.dir(tree, { depth: null });
+const processFile = (filePath: string, tsOptions: CompilerOptions, filesInfo: FileInfo[]) => {
+  const sourceFile = project.addSourceFileAtPath(filePath);
+  const fileInfo = getImports(sourceFile, tsOptions);
+  filesInfo.push(fileInfo);
+  fileInfo.imports.forEach((filePath) => processFile(filePath, tsOptions, filesInfo));
+  return filesInfo;
+};
 
-fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
-fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree, null, 2));
+export const getTreeByFile = (filePath: string) => {
+  const tsConfig = getTsConfig();
+  const filesInfo: FileInfo[] = [];
+  if (tsConfig) {
+    processFile(filePath, tsConfig.options, filesInfo);
+  }
+  return filesInfo;
+};
+
+// const info = getFilesInfo('test/test-project/**/*.ts');
+// console.log(info);
+// const tree = buildTree(info);
+// console.log(tree);
+// console.dir(tree, { depth: null });
+
+// fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
+// fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree, null, 2));
+
+// const filesInfo = getTreeByFile('test/test-project/index.ts');
+// console.log(filesInfo);
+// fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
+// const tree = buildTree(filesInfo);
+// console.dir(tree, { depth: null });
+// fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
