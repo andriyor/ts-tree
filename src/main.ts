@@ -4,19 +4,10 @@ const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
 });
 
-type Edge = {
-  source: string;
-  target: string;
-};
-
-type Node = {
+type FileInfo = {
   path: string;
-  label: string;
-};
-
-type Graph = {
-  nodes: Node[];
-  edges: Edge[];
+  imports: string[];
+  children: FileInfo[];
 };
 
 export const getTsConfig = () => {
@@ -31,17 +22,53 @@ export const trimQuotes = (str: string) => {
   return str.slice(1, -1);
 };
 
+export const buildTree = (data: FileInfo[]) => {
+  const tree: Record<string, FileInfo> = {};
+
+  // Create nodes
+  data.forEach((node) => {
+    tree[node.path] = node;
+  });
+
+  // Create edges
+  data.forEach((item) => {
+    const node = tree[item.path];
+    item.imports.forEach((importPath) => {
+      const importNode = tree[importPath];
+      if (node && importNode) {
+        node.children.push(importNode);
+      }
+    });
+  });
+
+  // Find root nodes
+  const rootNodes = data.filter((node) => {
+    return !data.some((edge) => edge.imports.some((n) => n === node.path));
+  });
+
+  const rootNode: FileInfo = { path: 'Root', children: [], imports: [] };
+  rootNodes.forEach((node) => {
+    const child = tree[node.path];
+    if (child) {
+      rootNode.children.push(child);
+    }
+  });
+  return rootNode;
+};
+
 export const getTree = (path: string) => {
   const tsConfig = getTsConfig();
-  const graph: Graph = {
-    nodes: [],
-    edges: [],
-  };
+  const filesInfo: FileInfo[] = [];
   if (tsConfig) {
     const sourceFiles = project.getSourceFiles(path);
     sourceFiles.forEach((sourceFile) => {
+      const currentFilePath = sourceFile.getFilePath();
+      const fileInfo: FileInfo = {
+        path: currentFilePath,
+        imports: [],
+        children: [],
+      };
       sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
-        const currentFilePath = sourceFile.getFilePath();
         const moduleSpecifier = importDeclaration.getModuleSpecifier();
 
         const moduleName = trimQuotes(moduleSpecifier.getText());
@@ -53,20 +80,17 @@ export const getTree = (path: string) => {
         );
         const path = resolvedModuleName.resolvedModule?.resolvedFileName;
         if (path) {
-          graph.nodes.push({
-            path,
-            label: moduleName,
-          });
-          graph.edges.push({
-            source: currentFilePath,
-            target: path,
-          });
+          fileInfo.imports.push(path);
         }
       });
+      filesInfo.push(fileInfo);
     });
   }
-  return graph;
+  return filesInfo;
 };
 
-// const tree = getTree('test/test-project/**/*.ts');
-// console.log(tree);
+const info = getTree('test/test-project/**/*.ts');
+console.log(info);
+const tree = buildTree(info);
+console.log(tree);
+console.dir(tree, { depth: null });
