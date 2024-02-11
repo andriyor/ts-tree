@@ -2,7 +2,7 @@ import { bench, run } from 'mitata';
 
 import { getTreeByFile } from '../src/main';
 
-bench('noop', () => {
+bench('getTreeByFile', () => {
   getTreeByFile('test/test-project/index.ts');
 });
 

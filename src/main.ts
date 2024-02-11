@@ -100,21 +100,30 @@ export const getFilesInfo = (path: string) => {
   return filesInfo;
 };
 
-const processFile = (filePath: string, tsOptions: CompilerOptions, filesInfo: FileInfo[]) => {
+const processFile = (
+  filePath: string,
+  tsOptions: CompilerOptions,
+  filesInfo: Record<string, FileInfo>,
+) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
+  const currentFilePath = sourceFile.getFilePath();
   const fileInfo = getImports(sourceFile, tsOptions);
-  filesInfo.push(fileInfo);
-  fileInfo.imports.forEach((filePath) => processFile(filePath, tsOptions, filesInfo));
+  filesInfo[currentFilePath] = fileInfo;
+  fileInfo.imports.forEach((filePath) => {
+    if (!filesInfo[filePath]) {
+      processFile(filePath, tsOptions, filesInfo);
+    }
+  });
   return filesInfo;
 };
 
 export const getTreeByFile = (filePath: string) => {
   const tsConfig = getTsConfig();
-  const filesInfo: FileInfo[] = [];
+  const tree: Record<string, FileInfo> = {};
   if (tsConfig) {
-    processFile(filePath, tsConfig.options, filesInfo);
+    processFile(filePath, tsConfig.options, tree);
   }
-  return filesInfo;
+  return tree;
 };
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
@@ -129,7 +138,7 @@ export const getTreeByFile = (filePath: string) => {
 // const filesInfo = getTreeByFile('test/test-project/index.ts');
 // console.log(filesInfo);
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
-// const tree = buildTree(filesInfo);
+// const tree = buildTree(Object.values(filesInfo));
 // console.dir(tree, { depth: null });
 // fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
 
