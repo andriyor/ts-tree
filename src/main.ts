@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 import { CompilerOptions, Project, SourceFile, SyntaxKind, ts } from 'ts-morph';
 
@@ -66,6 +67,22 @@ export const buildTree = (data: FileInfo[]) => {
   return rootNode;
 };
 
+export const getResolvedFileName = (
+  moduleName: string,
+  containingFile: string,
+  tsOptions: CompilerOptions,
+) => {
+  const resolvedModuleName = ts.resolveModuleName(moduleName, containingFile, tsOptions, ts.sys);
+  if (resolvedModuleName.resolvedModule?.resolvedFileName) {
+    if (resolvedModuleName.resolvedModule.resolvedFileName.includes(process.cwd())) {
+      return resolvedModuleName.resolvedModule?.resolvedFileName;
+    } else {
+      // handle alias
+      return path.join(process.cwd(), resolvedModuleName.resolvedModule.resolvedFileName);
+    }
+  }
+};
+
 const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
   const currentFilePath = sourceFile.getFilePath();
   const baseName = sourceFile.getBaseName();
@@ -78,8 +95,7 @@ const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
     const moduleSpecifier = importDeclaration.getModuleSpecifier();
 
     const moduleName = trimQuotes(moduleSpecifier.getText());
-    const resolvedModuleName = ts.resolveModuleName(moduleName, currentFilePath, tsOptions, ts.sys);
-    const path = resolvedModuleName.resolvedModule?.resolvedFileName;
+    const path = getResolvedFileName(moduleName, currentFilePath, tsOptions);
     if (path && !path.includes('node_modules')) {
       fileInfo.imports.push(path);
     }
@@ -141,7 +157,6 @@ export const getTreeByFile = (filePath: string) => {
 // const tree = buildTree(Object.values(filesInfo));
 // console.dir(tree, { depth: null });
 // fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
-
 
 // const filesInfo = getTreeByFile('src/containers/bank/form/form.container.tsx');
 // console.log(filesInfo);
