@@ -80,7 +80,7 @@ const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
     const moduleName = trimQuotes(moduleSpecifier.getText());
     const resolvedModuleName = ts.resolveModuleName(moduleName, currentFilePath, tsOptions, ts.sys);
     const path = resolvedModuleName.resolvedModule?.resolvedFileName;
-    if (path) {
+    if (path && !path.includes('node_modules')) {
       fileInfo.imports.push(path);
     }
   });
@@ -129,6 +129,13 @@ export const getTreeByFile = (filePath: string) => {
 // const filesInfo = getTreeByFile('test/test-project/index.ts');
 // console.log(filesInfo);
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
+// const tree = buildTree(filesInfo);
+// console.dir(tree, { depth: null });
+// fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
+
+
+// const filesInfo = getTreeByFile('src/containers/bank/form/form.container.tsx');
+// console.log(filesInfo);
 // const tree = buildTree(filesInfo);
 // console.dir(tree, { depth: null });
 // fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));

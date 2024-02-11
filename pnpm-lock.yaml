@@ -19,6 +19,9 @@ devDependencies:
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
+  string-ts:
+    specifier: ^2.0.0
+    version: 2.0.0
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -903,6 +906,10 @@ packages:
 
   /std-env@3.7.0:
     resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
+    dev: true
+
+  /string-ts@2.0.0:
+    resolution: {integrity: sha512-Q+WJ5tQ0AdCeWgbhe3ZqDw1v5DGac5/lmDVNbJIa/bFR7TGfB8nJ1rHQSqinZHB8wKetUfhQlfR89puRcIKZZw==}
     dev: true
 
   /strip-final-newline@3.0.0:
