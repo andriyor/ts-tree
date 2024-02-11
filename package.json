@@ -1,0 +1,22 @@
+{
+  "name": "ts-tree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ts-morph": "^21.0.1"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "^2.0.3",
+    "@types/node": "^20.11.17",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
