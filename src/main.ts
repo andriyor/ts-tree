@@ -119,12 +119,12 @@ export const getTreeByFile = (filePath: string) => {
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
 // console.log(info);
-// const tree = buildTree(info);
-// console.log(tree);
-// console.dir(tree, { depth: null });
+// const tree1 = buildTree(info);
+// console.log(tree1);
+// console.dir(tree1, { depth: null });
 
 // fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
-// fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree, null, 2));
+// fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 
 // const filesInfo = getTreeByFile('test/test-project/index.ts');
 // console.log(filesInfo);

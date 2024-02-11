@@ -4,4 +4,4 @@ import { nested2 } from './nested2';
 console.log(nested);
 console.log(nested2);
 
-export const dep = 'dep';
+export const deep2 = 'deep2';
