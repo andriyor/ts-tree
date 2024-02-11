@@ -1,0 +1,27 @@
+[
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/dedp.ts",
+    "name": "dedp.ts",
+    "imports": [
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts"
+    ]
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+    "name": "index.ts",
+    "imports": [
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/dedp.ts"
+    ]
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+    "name": "nested.ts",
+    "imports": []
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+    "name": "nested2.ts",
+    "imports": []
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "id": "root",
+  "path": "Root",
+  "name": "Roor",
+  "children": [
+    {
+      "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+      "name": "index.ts",
+      "children": [
+        {
+          "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/dedp.ts",
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/dedp.ts",
+          "name": "dedp.ts",
+          "children": [
+            {
+              "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "name": "nested.ts",
+              "children": []
+            },
+            {
+              "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "name": "nested2.ts",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

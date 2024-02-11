@@ -1,22 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { getTree } from '../src/main';
+import { getFilesInfo, buildTree } from '../src/main';
+import treeMock from './mock/tree.json';
+import infoMock from './mock/info.json';
 
 describe('ts-tree', () => {
-  it('getTree', () => {
-    const tree = getTree('test/test-project/**/*.ts');
-    expect(tree).toEqual({
-      nodes: [
-        {
-          path: '/Users/aoriekhov/git/personal/ts-tree/test/test-project/dep.ts',
-          label: './dep',
-        },
-      ],
-      edges: [
-        {
-          source: '/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts',
-          target: '/Users/aoriekhov/git/personal/ts-tree/test/test-project/dep.ts',
-        },
-      ],
-    });
+  it('getFilesInfo', () => {
+    const filesInfo = getFilesInfo('test/test-project/**/*.ts');
+    expect(filesInfo).toEqual(infoMock);
+  });
+
+  it('buildTree', () => {
+    const tree = buildTree(infoMock);
+    expect(tree).toEqual(treeMock);
   });
 });

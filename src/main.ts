@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+
 import { Project, SyntaxKind, ts } from 'ts-morph';
 
 const project = new Project({
@@ -6,8 +8,15 @@ const project = new Project({
 
 type FileInfo = {
   path: string;
+  name: string;
   imports: string[];
-  children: FileInfo[];
+};
+
+type Tree = {
+  id: string;
+  path: string;
+  name: string;
+  children: Tree[];
 };
 
 export const getTsConfig = () => {
@@ -23,11 +32,12 @@ export const trimQuotes = (str: string) => {
 };
 
 export const buildTree = (data: FileInfo[]) => {
-  const tree: Record<string, FileInfo> = {};
+  const tree: Record<string, Tree> = {};
 
   // Create nodes
   data.forEach((node) => {
-    tree[node.path] = node;
+    const { path, name } = node;
+    tree[path] = { id: path, path, name, children: [] };
   });
 
   // Create edges
@@ -46,7 +56,7 @@ export const buildTree = (data: FileInfo[]) => {
     return !data.some((edge) => edge.imports.some((n) => n === node.path));
   });
 
-  const rootNode: FileInfo = { path: 'Root', children: [], imports: [] };
+  const rootNode: Tree = { id: 'root', path: 'Root', name: 'Roor', children: [] };
   rootNodes.forEach((node) => {
     const child = tree[node.path];
     if (child) {
@@ -56,17 +66,18 @@ export const buildTree = (data: FileInfo[]) => {
   return rootNode;
 };
 
-export const getTree = (path: string) => {
+export const getFilesInfo = (path: string) => {
   const tsConfig = getTsConfig();
   const filesInfo: FileInfo[] = [];
   if (tsConfig) {
     const sourceFiles = project.getSourceFiles(path);
     sourceFiles.forEach((sourceFile) => {
       const currentFilePath = sourceFile.getFilePath();
+      const baseName = sourceFile.getBaseName();
       const fileInfo: FileInfo = {
         path: currentFilePath,
+        name: baseName,
         imports: [],
-        children: [],
       };
       sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
         const moduleSpecifier = importDeclaration.getModuleSpecifier();
@@ -89,8 +100,11 @@ export const getTree = (path: string) => {
   return filesInfo;
 };
 
-const info = getTree('test/test-project/**/*.ts');
+const info = getFilesInfo('test/test-project/**/*.ts');
 console.log(info);
 const tree = buildTree(info);
 console.log(tree);
 console.dir(tree, { depth: null });
+
+fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
+fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree, null, 2));

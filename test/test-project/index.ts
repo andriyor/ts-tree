@@ -1,4 +1,4 @@
-import { dep } from "./dep";
+import { dep } from './dedp';
 
 console.log('main');
 console.log(dep);
