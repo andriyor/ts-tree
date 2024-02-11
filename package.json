@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "bench": "tsx test/bench.ts > test/bench-result.json && prettier --write test/bench-result.json"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@tsconfig/strictest": "^2.0.3",
     "@types/node": "^20.11.17",
+    "mitata": "^0.1.9",
     "prettier": "^3.2.5",
     "string-ts": "^2.0.0",
     "typescript": "^5.3.3",

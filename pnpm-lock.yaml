@@ -16,6 +16,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.11.17
     version: 20.11.17
+  mitata:
+    specifier: ^0.1.9
+    version: 0.1.9
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
@@ -722,6 +725,10 @@ packages:
     dependencies:
       brace-expansion: 2.0.1
     dev: false
+
+  /mitata@0.1.9:
+    resolution: {integrity: sha512-/Nr2NeYkCh9r5GHV8YZ5pZHlIhKx04O4TH2M9Ydk2yQeJnpgtBl20HJQDY34TUq4ozL1MNHajZGjLJm7K5U2Gg==}
+    dev: true
 
   /mkdirp@3.0.1:
     resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}

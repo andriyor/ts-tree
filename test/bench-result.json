@@ -1,0 +1,23 @@
+{
+  "benchmarks": [
+    {
+      "name": "noop",
+      "group": null,
+      "time": 500,
+      "warmup": true,
+      "baseline": false,
+      "async": false,
+      "stats": {
+        "min": 560458,
+        "max": 1446416,
+        "p50": 624875,
+        "p75": 680833,
+        "p99": 1260875,
+        "p999": 1446416,
+        "avg": 665605.1624026697
+      }
+    }
+  ],
+  "cpu": "Apple M1 Pro",
+  "runtime": "node v20.11.0 (arm64-darwin)"
+}
