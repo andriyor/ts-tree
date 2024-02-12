@@ -1,5 +1,4 @@
 {
-  "id": "root",
   "path": "Root",
   "name": "Roor",
   "children": [
@@ -35,6 +34,17 @@
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
               "name": "nested2.ts",
+              "children": []
+            }
+          ]
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
+          "name": "index.ts",
+          "children": [
+            {
+              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+              "name": "helper.ts",
               "children": []
             }
           ]

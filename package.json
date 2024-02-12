@@ -20,6 +20,7 @@
     "prettier": "^3.2.5",
     "string-ts": "^2.0.0",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.2"
+    "vitest": "^1.2.2",
+    "wild-wild-path": "^5.0.0"
   }
 }

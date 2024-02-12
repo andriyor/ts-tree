@@ -20,7 +20,8 @@
     "name": "index.ts",
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts"
     ]
   },
   {
@@ -37,5 +38,17 @@
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
     "name": "type.ts",
     "imports": []
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+    "name": "helper.ts",
+    "imports": []
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
+    "name": "index.ts",
+    "imports": [
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts"
+    ]
   }
 ]

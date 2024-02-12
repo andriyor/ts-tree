@@ -31,6 +31,9 @@ devDependencies:
   vitest:
     specifier: ^1.2.2
     version: 1.2.2(@types/node@20.11.17)
+  wild-wild-path:
+    specifier: ^5.0.0
+    version: 5.0.0
 
 packages:
 
@@ -663,6 +666,11 @@ packages:
     engines: {node: '>=0.12.0'}
     dev: false
 
+  /is-plain-obj@4.1.0:
+    resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
+    engines: {node: '>=12'}
+    dev: true
+
   /is-stream@3.0.0:
     resolution: {integrity: sha512-LnQR4bZ9IADDRSkvpqMGvt/tEJWclzklNgSw48V5EAaAeDd6qGvN8ei6k5p0tvxSR171VmGyHuTiAOfxAbr8kA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -1106,6 +1114,19 @@ packages:
     dependencies:
       siginfo: 2.0.0
       stackback: 0.0.2
+    dev: true
+
+  /wild-wild-parser@5.0.0:
+    resolution: {integrity: sha512-PhXbRaR8nhdbBmGFALzTDSwlSyx2y/xYIFjHjMmXp8fboYK5n38HBORrsLOgBGL7P/okEcrBss4FidVvDgoSIw==}
+    engines: {node: '>=18.18.0'}
+    dev: true
+
+  /wild-wild-path@5.0.0:
+    resolution: {integrity: sha512-VCQkUxypXhWK/k352j73ZVcPaLwM5TorOcVAn6zTcoqEPknv52iMbXu+JfTur7zhcFcsTi7CVsTais6X4zVsdA==}
+    engines: {node: '>=18.18.0'}
+    dependencies:
+      is-plain-obj: 4.1.0
+      wild-wild-parser: 5.0.0
     dev: true
 
   /yocto-queue@1.0.0:

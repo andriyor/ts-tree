@@ -11,3 +11,5 @@
 - [ ] option to ignore types dependencies
 - [ ] ignore types only files
 - [ ] option to ignore types only files
+- [x] handle `ExportDeclaration` with moduleSpecifier
+- [ ] ignore barrel files
