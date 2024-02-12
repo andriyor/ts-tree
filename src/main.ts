@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import crypto from 'node:crypto';
 import { CompilerOptions, Project, SourceFile, SyntaxKind, ts, Node } from 'ts-morph';
 
 // import { parse } from '@typescript-eslint/typescript-estree';
@@ -9,7 +10,8 @@ const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
 });
 
-type FileInfo = {
+export type FileInfo = {
+  id: string;
   path: string;
   name: string;
   imports: string[];
@@ -39,8 +41,8 @@ export const buildTree = (data: FileInfo[]) => {
 
   // Create nodes
   data.forEach((node) => {
-    const { path, name } = node;
-    tree[path] = { id: path, path, name, children: [] };
+    const { imports, path, ...rest } = node;
+    tree[path] = { path, ...rest, children: [] };
   });
 
   // Create edges
@@ -89,14 +91,14 @@ const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
   const currentFilePath = sourceFile.getFilePath();
   const baseName = sourceFile.getBaseName();
   const fileInfo: FileInfo = {
+    id: crypto.randomUUID(),
     path: currentFilePath,
     name: baseName,
     imports: [],
   };
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const moduleSpecifier = importDeclaration.getModuleSpecifier();
-    const importClause = importDeclaration.getImportClauseOrThrow();
-    const namedBindings = importClause.getNamedBindings();
+    const namedBindings = importDeclaration.getImportClause()?.getNamedBindings();
     if (Node.isNamedImports(namedBindings)) {
       const isTypeImports = namedBindings.getElements().every((named) => {
         const nodes = named.getNameNode().getDefinitionNodes();
@@ -158,13 +160,18 @@ export const getTreeByFile = (filePath: string) => {
   return tree;
 };
 
+// import lodash from 'lodash';
 // const info = getFilesInfo('test/test-project/**/*.ts');
+// const infoWithoutId = info.map((i) => {
+//   const { id, ...rest } = i;
+//   return rest;
+// });
 // console.log(info);
-// const tree1 = buildTree(info);
+// // @ts-expect-error
+// const tree1 = buildTree(infoWithoutId);
 // console.log(tree1);
 // console.dir(tree1, { depth: null });
-
-// fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
+// fs.writeFileSync('./test/mock/info.json', JSON.stringify(infoWithoutId, null, 2));
 // fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 
 // const filesInfo = getTreeByFile('test/test-project/index.ts');

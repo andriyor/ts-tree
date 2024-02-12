@@ -5,19 +5,23 @@
   "children": [
     {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+      "id": "b8cbb392-a093-47b3-bfff-51d970950351",
       "name": "index.ts",
       "children": [
         {
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
+          "id": "7e815d13-ad74-4116-a299-16dfbaa9e9fb",
           "name": "deep.ts",
           "children": [
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "id": "cc9cf928-3faf-4fe3-8371-63009c87ab02",
               "name": "nested.ts",
               "children": []
             },
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "id": "37bd9a93-bd6c-42ab-8a0a-2993990833e5",
               "name": "nested2.ts",
               "children": []
             }
@@ -25,26 +29,24 @@
         },
         {
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
+          "id": "123796c5-4efb-4556-80bd-c00facbe6f92",
           "name": "deep2.ts",
           "children": [
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "id": "cc9cf928-3faf-4fe3-8371-63009c87ab02",
               "name": "nested.ts",
               "children": []
             },
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "id": "37bd9a93-bd6c-42ab-8a0a-2993990833e5",
               "name": "nested2.ts",
               "children": []
             }
           ]
         }
       ]
-    },
-    {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
-      "name": "type.ts",
-      "children": []
     }
   ]
 }
