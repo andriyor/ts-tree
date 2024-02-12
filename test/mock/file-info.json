@@ -5,7 +5,7 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts"
     ]
   },
   "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts": {
@@ -32,13 +32,6 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts"
-    ]
-  },
-  "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts": {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
-    "name": "index.ts",
-    "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts"
     ]
   },
   "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts": {

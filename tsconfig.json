@@ -1,6 +1,13 @@
 {
-  "extends": "@tsconfig/strictest/tsconfig.json",
+  "exclude": ["coverage"],
   "compilerOptions": {
-    "resolveJsonModule": true
+    "outDir": "build",
+    "target": "es2016",
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
   }
 }
