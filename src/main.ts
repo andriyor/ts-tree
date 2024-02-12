@@ -1,10 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
-
 import crypto from 'node:crypto';
-import { CompilerOptions, Project, SourceFile, SyntaxKind, ts, Node, StringLiteral } from 'ts-morph';
 
-// import { parse } from '@typescript-eslint/typescript-estree';
+import { CompilerOptions, Project, SourceFile, SyntaxKind, ts, Node, StringLiteral } from 'ts-morph';
 
 const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
@@ -41,9 +39,7 @@ export const buildTree = (data: FileInfo[]) => {
   // Create nodes
   data.forEach((node) => {
     const { imports, path, ...rest } = node;
-    // TODO: use hash instead of UUID
-    const id = crypto.randomUUID();
-    tree[path] = { path, id, ...rest, children: [] };
+    tree[path] = { path, id: path, ...rest, children: [] };
   });
 
   // Create edges
@@ -54,7 +50,6 @@ export const buildTree = (data: FileInfo[]) => {
       if (node && importNode) {
         node.children.push({
           ...importNode,
-          // TODO: use hash instead of UUID
           id: crypto.randomUUID(),
         });
       }
@@ -155,11 +150,7 @@ export const getFilesInfo = (path: string) => {
   return filesInfo;
 };
 
-const processFile = (
-  filePath: string,
-  tsOptions: CompilerOptions,
-  filesInfo: Record<string, FileInfo>,
-) => {
+const processFile = (filePath: string, tsOptions: CompilerOptions, filesInfo: Record<string, FileInfo>) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
   const currentFilePath = sourceFile.getFilePath();
   const fileInfo = getImports(sourceFile, tsOptions);
@@ -195,6 +186,7 @@ export const getTreeByFile = (filePath: string) => {
 // console.log(filesInfo);
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
 // const tree = buildTree(Object.values(filesInfo));
+// console.dir(tree, { depth: null });
 // const withoutids = remove(tree, '**.id');
 // fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(withoutids, null, 2));
 
