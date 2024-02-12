@@ -47,6 +47,12 @@
           ]
         }
       ]
+    },
+    {
+      "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
+      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
+      "name": "type.ts",
+      "children": []
     }
   ]
 }

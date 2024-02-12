@@ -32,5 +32,10 @@
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
     "name": "nested2.ts",
     "imports": []
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
+    "name": "type.ts",
+    "imports": []
   }
 ]

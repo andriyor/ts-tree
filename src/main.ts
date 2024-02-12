@@ -1,7 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import { CompilerOptions, Project, SourceFile, SyntaxKind, ts } from 'ts-morph';
+import { CompilerOptions, Project, SourceFile, SyntaxKind, ts, Node } from 'ts-morph';
+
+// import { parse } from '@typescript-eslint/typescript-estree';
 
 const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
@@ -93,6 +95,19 @@ const getImports = (sourceFile: SourceFile, tsOptions: CompilerOptions) => {
   };
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const moduleSpecifier = importDeclaration.getModuleSpecifier();
+    const importClause = importDeclaration.getImportClauseOrThrow();
+    const namedBindings = importClause.getNamedBindings();
+    if (Node.isNamedImports(namedBindings)) {
+      const isTypeImports = namedBindings.getElements().every((named) => {
+        const nodes = named.getNameNode().getDefinitionNodes();
+        return nodes.every((node) => {
+          return Node.isTypeAliasDeclaration(node);
+        });
+      });
+      if (isTypeImports) {
+        return;
+      }
+    }
 
     const moduleName = trimQuotes(moduleSpecifier.getText());
     const path = getResolvedFileName(moduleName, currentFilePath, tsOptions);
@@ -109,6 +124,7 @@ export const getFilesInfo = (path: string) => {
   if (tsConfig) {
     const sourceFiles = project.getSourceFiles(path);
     sourceFiles.forEach((sourceFile) => {
+      // TODO: check is all is type def
       const fileInfo = getImports(sourceFile, tsConfig.options);
       filesInfo.push(fileInfo);
     });
@@ -160,6 +176,6 @@ export const getTreeByFile = (filePath: string) => {
 
 // const filesInfo = getTreeByFile('src/containers/bank/form/form.container.tsx');
 // console.log(filesInfo);
-// const tree = buildTree(filesInfo);
+// const tree = buildTree(Object.values(filesInfo));
 // console.dir(tree, { depth: null });
-// fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
+// fs.writeFileSync('./file-tree.json', JSON.stringify(tree));
