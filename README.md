@@ -11,3 +11,4 @@
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
 - [ ] exclude barrel files from folder tree
+- [ ] guaranteed uniques of tree node id

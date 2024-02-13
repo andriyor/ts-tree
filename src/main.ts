@@ -6,7 +6,7 @@ const project = new Project({
   tsConfigFilePath: 'tsconfig.json',
 });
 
-export type FileInfo = {
+type FileInfo = {
   path: string;
   name: string;
   imports: string[];

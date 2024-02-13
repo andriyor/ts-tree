@@ -42,7 +42,9 @@
   {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
     "name": "helper.ts",
-    "imports": []
+    "imports": [
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts"
+    ]
   },
   {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",

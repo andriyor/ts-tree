@@ -13,8 +13,7 @@ fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
 // const tree = buildTree(Object.values(filesInfo));
 // console.dir(tree, { depth: null });
-// const withoutids = remove(tree, '**.id');
-// fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(withoutids, null, 2));
+// fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(tree, null, 2));
 
 // const filesInfo = getTreeByFile('src/containers/bank/form/form.container.tsx');
 // console.log(filesInfo);
