@@ -1,10 +1,4 @@
-import crypto from 'node:crypto';
-
-import { Project, SourceFile, SyntaxKind, ts, Node, StringLiteral } from 'ts-morph';
-
-const project = new Project({
-  tsConfigFilePath: 'tsconfig.json',
-});
+import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
 
 type FileInfo = {
   path: string;
@@ -13,7 +7,6 @@ type FileInfo = {
 };
 
 type Tree = {
-  id: string;
   path: string;
   name: string;
   children: Tree[];
@@ -29,7 +22,7 @@ export const buildTree = (data: FileInfo[]) => {
   // Create nodes
   data.forEach((node) => {
     const { imports, path, ...rest } = node;
-    tree[path] = { path, id: path, ...rest, children: [] };
+    tree[path] = { path, ...rest, children: [] };
   });
 
   // Create edges
@@ -39,11 +32,7 @@ export const buildTree = (data: FileInfo[]) => {
       const importNode = tree[importPath];
       if (node && importNode) {
         const name = `${node.path}/${importNode.path}`;
-        const hash = crypto.createHash('md5').update(name).digest('hex');
-        node.children.push({
-          ...importNode,
-          id: hash,
-        });
+        node.children.push(importNode);
       }
     });
   });
@@ -53,7 +42,7 @@ export const buildTree = (data: FileInfo[]) => {
     return !data.some((edge) => edge.imports.some((n) => n === node.path));
   });
 
-  const rootNode: Tree = { id: 'root', path: 'Root', name: 'Roor', children: [] };
+  const rootNode: Tree = { path: 'Root', name: 'Root', children: [] };
   rootNodes.forEach((node) => {
     const child = tree[node.path];
     if (child) {
@@ -79,7 +68,11 @@ const getImports = (sourceFile: SourceFile) => {
         const nodes = named.getNameNode().getDefinitionNodes();
         nodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
-          if (!path.includes('node_modules') && !Node.isTypeAliasDeclaration(node)) {
+          if (
+            !path.includes('node_modules') &&
+            !Node.isTypeAliasDeclaration(node) &&
+            !Node.isInterfaceDeclaration(node)
+          ) {
             paths.add(path);
           }
         });
@@ -91,6 +84,9 @@ const getImports = (sourceFile: SourceFile) => {
 };
 
 export const getFilesInfo = (path: string) => {
+  const project = new Project({
+    tsConfigFilePath: 'tsconfig.json',
+  });
   const filesInfo: FileInfo[] = [];
   const sourceFiles = project.getSourceFiles(path);
   sourceFiles.forEach((sourceFile) => {
@@ -100,21 +96,7 @@ export const getFilesInfo = (path: string) => {
   return filesInfo;
 };
 
-const processFile = (filePath: string, filesInfo: Record<string, FileInfo>) => {
-  const sourceFile = project.addSourceFileAtPath(filePath);
-  const currentFilePath = sourceFile.getFilePath();
-  const fileInfo = getImports(sourceFile);
-  filesInfo[currentFilePath] = fileInfo;
-  fileInfo.imports.forEach((filePath) => {
-    if (!filesInfo[filePath]) {
-      processFile(filePath, filesInfo);
-    }
-  });
-  return filesInfo;
-};
-
-export const getTreeByFile = (filePath: string) => {
-  const tree: Record<string, FileInfo> = {};
-  processFile(filePath, tree);
-  return tree;
+export const getTreeByFolder = (folderPath: string) => {
+  const info = getFilesInfo('test/test-project/**/*.ts');
+  return buildTree(info);
 };

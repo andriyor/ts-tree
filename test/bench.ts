@@ -1,9 +1,14 @@
 import { bench, run } from 'mitata';
 
-import { getTreeByFile } from '../src/main';
+import { getTreeByFile } from '../src/fileTree';
+import { getTreeByFolder } from '../src/folderTree';
 
 bench('getTreeByFile', () => {
   getTreeByFile('test/test-project/index.ts');
+});
+
+bench('getTreeByFolder', () => {
+  getTreeByFolder('test/test-project/**/*.ts');
 });
 
 (async () => {
