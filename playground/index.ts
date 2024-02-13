@@ -25,9 +25,10 @@ import { getTreeByFile } from '../src/fileTree';
 // console.dir(newTree, { depth: null });
 // fs.writeFileSync('./test/mock/file-tree-with-id.json', JSON.stringify(newTree, null, 2));
 
-const fileTree = getTreeByFile('src/containers/bank/form/form.container.tsx');
+const report = JSON.parse(fs.readFileSync('coverage/coverage-summary copy.json', 'utf-8'));
+const fileTree = getTreeByFile('src/containers/bank/form/form.container.tsx', report);
 console.dir(fileTree, { depth: null });
-fs.writeFileSync('./file-tree.json', JSON.stringify(fileTree));
+fs.writeFileSync('./file-tree.json', JSON.stringify(fileTree, null, 2));
 
 // import { set, iterate, list } from 'wild-wild-path';
 // const k = [

@@ -7,18 +7,29 @@ type FileTree = {
   parentId?: UUID;
   path: string;
   name: string;
+  meta?: unknown;
   children: FileTree[];
 };
 
-const buildFileTree = (project: Project, filePath: string, parentId?: UUID) => {
+const buildFileTree = (
+  project: Project,
+  filePath: string,
+  parentId?: UUID,
+  additionalInfo: Record<string, unknown> = {},
+) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
+
   const currentFilePath = sourceFile.getFilePath();
   const baseName = sourceFile.getBaseName();
+
+  const additionalFileInfo = additionalInfo[currentFilePath] ?? undefined;
+
   const fileTree: FileTree = {
     id: crypto.randomUUID(),
     path: currentFilePath,
     name: baseName,
     parentId,
+    meta: additionalFileInfo,
     children: [],
   };
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
@@ -40,17 +51,17 @@ const buildFileTree = (project: Project, filePath: string, parentId?: UUID) => {
       });
       const fileImports = [...Array.from(paths)];
       fileImports.forEach((fileImport) => {
-        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id));
+        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, additionalInfo));
       });
     }
   });
   return fileTree;
 };
 
-export const getTreeByFile = (filePath: string) => {
+export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
   const project = new Project({
     tsConfigFilePath: 'tsconfig.json',
   });
 
-  return buildFileTree(project, filePath);
+  return buildFileTree(project, filePath, undefined, additionalInfo);
 };

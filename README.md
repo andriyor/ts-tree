@@ -13,7 +13,12 @@
 - [ ] exclude barrel files from folder tree
 - [x] guarantee id uniqueness of file tree 
 - [ ] guarantee id uniqueness of folder tree 
+- [x] pass meta info about files to file tree
+- [ ] pass meta info about files to folder tree
 
 ## Tech Debt
 
 - [ ] add test for id uniqueness
+- [ ] reuse code between file and folder tree builder
+- [ ] cache file tree builer
+

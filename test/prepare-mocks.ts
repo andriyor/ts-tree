@@ -15,3 +15,13 @@ const fileTree = getTreeByFile('test/test-project/index.ts');
 const withoutIds = remove(fileTree, '**.id');
 const withoutParentIds = remove(withoutIds, '**.parentId');
 fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(withoutParentIds, null, 2));
+
+const meta = {
+  '/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts': {
+    total: 20,
+  },
+};
+const fileAdditionalTree = getTreeByFile('test/test-project/index.ts', meta);
+const additionalWithoutIds = remove(fileAdditionalTree, '**.id');
+const AdditionalwithoutParentIds = remove(additionalWithoutIds, '**.parentId');
+fs.writeFileSync('./test/mock/file-additional-tree.json', JSON.stringify(AdditionalwithoutParentIds, null, 2));
