@@ -19,14 +19,6 @@ type Tree = {
   children: Tree[];
 };
 
-export const getTsConfig = () => {
-  const tsConfigFilePath = ts.findConfigFile(process.cwd(), ts.sys.fileExists);
-  if (tsConfigFilePath) {
-    const configFile = ts.readConfigFile(tsConfigFilePath, ts.sys.readFile);
-    return ts.parseJsonConfigFileContent(configFile.config, ts.sys, '');
-  }
-};
-
 export const trimQuotes = (str: string) => {
   return str.slice(1, -1);
 };
@@ -46,9 +38,11 @@ export const buildTree = (data: FileInfo[]) => {
     item.imports.forEach((importPath) => {
       const importNode = tree[importPath];
       if (node && importNode) {
+        const name = `${node.path}/${importNode.path}`;
+        const hash = crypto.createHash('md5').update(name).digest('hex');
         node.children.push({
           ...importNode,
-          id: crypto.randomUUID(),
+          id: hash,
         });
       }
     });
@@ -120,10 +114,7 @@ const processFile = (filePath: string, filesInfo: Record<string, FileInfo>) => {
 };
 
 export const getTreeByFile = (filePath: string) => {
-  const tsConfig = getTsConfig();
   const tree: Record<string, FileInfo> = {};
-  if (tsConfig) {
-    processFile(filePath, tree);
-  }
+  processFile(filePath, tree);
   return tree;
 };

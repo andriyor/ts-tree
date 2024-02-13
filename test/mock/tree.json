@@ -1,22 +1,27 @@
 {
+  "id": "root",
   "path": "Root",
   "name": "Roor",
   "children": [
     {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+      "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
       "name": "index.ts",
       "children": [
         {
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
+          "id": "f749fe578e3ae813304727115d606aa2",
           "name": "deep.ts",
           "children": [
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "id": "01a5b5d0e82ccbcefcb68b316c51c4c5",
               "name": "nested.ts",
               "children": []
             },
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "id": "63e1975bf86bb264ea7735c0b7570d77",
               "name": "nested2.ts",
               "children": []
             }
@@ -24,15 +29,18 @@
         },
         {
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
+          "id": "fc3e8a1183a21802f13782dbe12b59f5",
           "name": "deep2.ts",
           "children": [
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "id": "9a832871035461d5fae87dd80152bf0d",
               "name": "nested.ts",
               "children": []
             },
             {
               "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "id": "5215e1e27453c47505e568c6f3546380",
               "name": "nested2.ts",
               "children": []
             }
@@ -40,6 +48,7 @@
         },
         {
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+          "id": "248488220f335a517d6726d39bb83053",
           "name": "helper.ts",
           "children": []
         }
@@ -47,11 +56,13 @@
     },
     {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
+      "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
       "name": "type.ts",
       "children": []
     },
     {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
+      "id": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
       "name": "index.ts",
       "children": []
     }

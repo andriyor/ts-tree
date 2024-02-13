@@ -1,5 +1,4 @@
 import { describe, it, expect } from 'vitest';
-import { remove } from 'wild-wild-path';
 
 import { getFilesInfo, buildTree, getTreeByFile } from '../src/main';
 
@@ -15,8 +14,7 @@ describe('ts-tree', () => {
 
   it('buildTree', () => {
     const tree = buildTree(infoMock);
-    const withoutids = remove(tree, '**.id');
-    expect(withoutids).toEqual(treeMock);
+    expect(tree).toEqual(treeMock);
   });
 
   it('getTreeByFile', () => {
