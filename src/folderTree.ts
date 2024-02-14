@@ -71,7 +71,8 @@ const getImports = (sourceFile: SourceFile) => {
           if (
             !path.includes('node_modules') &&
             !Node.isTypeAliasDeclaration(node) &&
-            !Node.isInterfaceDeclaration(node)
+            !Node.isInterfaceDeclaration(node) &&
+            !Node.isEnumDeclaration(node)
           ) {
             paths.add(path);
           }

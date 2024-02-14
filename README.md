@@ -14,8 +14,8 @@ tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.
 - [x] tree by file dependencies
 - [x] ignore third-party dependencies
 - [x] alias handling
-- [x] ignore types/interface dependencies from file tree
-- [ ] ignore types/interface dependencies from folder tree
+- [x] ignore types/interface/enum dependencies from file tree
+- [ ] ignore types/interface/enum dependencies from folder tree
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
 - [ ] exclude barrel files from folder tree
