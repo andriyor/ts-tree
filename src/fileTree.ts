@@ -1,23 +1,7 @@
+import path from 'node:path';
 import crypto, { UUID } from 'node:crypto';
-import fs from 'node:fs';
 
 import { Project, SyntaxKind, Node } from 'ts-morph';
-import { typeFlag } from 'type-flag';
-
-const parsed = typeFlag({
-  rootFile: {
-    type: String,
-    alias: 'r',
-  },
-  outputFile: {
-    type: String,
-    alias: 'o',
-  },
-  metaFile: {
-    type: String,
-    alias: 'm',
-  },
-});
 
 type FileTree = {
   id: UUID;
@@ -37,13 +21,14 @@ const buildFileTree = (
   const sourceFile = project.addSourceFileAtPath(filePath);
 
   const currentFilePath = sourceFile.getFilePath();
+  const relativeFilePath = path.relative(process.cwd(), currentFilePath);
   const baseName = sourceFile.getBaseName();
 
   const additionalFileInfo = additionalInfo[currentFilePath] ?? undefined;
 
   const fileTree: FileTree = {
     id: crypto.randomUUID(),
-    path: currentFilePath,
+    path: relativeFilePath,
     name: baseName,
     parentId,
     meta: additionalFileInfo,
@@ -83,15 +68,3 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
 
   return buildFileTree(project, filePath, undefined, additionalInfo);
 };
-if (parsed.flags.rootFile && parsed.flags.outputFile && parsed.flags.metaFile) {
-  const meta = JSON.parse(fs.readFileSync(parsed.flags.metaFile, 'utf-8'));
-  const tree = getTreeByFile(parsed.flags.rootFile, meta);
-  fs.writeFileSync(parsed.flags.outputFile, JSON.stringify(tree, null, 2), 'utf-8');
-} else if (parsed.flags.rootFile && parsed.flags.outputFile) {
-  const tree = getTreeByFile(parsed.flags.rootFile);
-  fs.writeFileSync(parsed.flags.outputFile, JSON.stringify(tree, null, 2), 'utf-8');
-} else if (parsed.flags.rootFile) {
-  console.log(getTreeByFile(parsed.flags.rootFile));
-} else {
-  console.log('provide required --root-file option');
-}

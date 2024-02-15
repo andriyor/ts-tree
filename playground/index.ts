@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import { getTreeByFile } from '../src/fileTree';
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
@@ -8,8 +9,16 @@ import { getTreeByFile } from '../src/fileTree';
 // fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
 // fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 
-// const filesInfo = getTreeByFile('test/test-project/index.ts');
-// console.dir(filesInfo, { depth: null });
+const filesInfo = getTreeByFile('test/test-project/index.ts');
+console.dir(filesInfo, { depth: null });
+
+console.log(path.relative('/foo/bar', '/foo/bar/baz.json'));
+console.log(
+  path.relative(
+    '/Users/aoriekhov/git/personal/ts-tree',
+    '/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts',
+  ),
+);
 
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
 // const tree = buildTree(filesInfo);
@@ -25,10 +34,10 @@ import { getTreeByFile } from '../src/fileTree';
 // console.dir(newTree, { depth: null });
 // fs.writeFileSync('./test/mock/file-tree-with-id.json', JSON.stringify(newTree, null, 2));
 
-const report = JSON.parse(fs.readFileSync('coverage/coverage-summary copy.json', 'utf-8'));
-const fileTree = getTreeByFile('src/containers/bank/form/form.container.tsx', report);
-console.dir(fileTree, { depth: null });
-fs.writeFileSync('./file-tree.json', JSON.stringify(fileTree, null, 2));
+// const report = JSON.parse(fs.readFileSync('coverage/coverage-summary copy.json', 'utf-8'));
+// const fileTree = getTreeByFile('src/containers/bank/form/form.container.tsx', report);
+// console.dir(fileTree, { depth: null });
+// fs.writeFileSync('./file-tree.json', JSON.stringify(fileTree, null, 2));
 
 // import { set, iterate, list } from 'wild-wild-path';
 // const k = [
