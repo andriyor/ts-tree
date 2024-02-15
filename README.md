@@ -23,7 +23,8 @@ tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.
 - [ ] guarantee id uniqueness of folder tree 
 - [x] pass meta info about files to file tree
 - [ ] pass meta info about files to folder tree
-- [ ] arg parser for file tree
+- [x] arg parser for file tree
+- [x] include used export by parent
 
 ## Tech Debt
 

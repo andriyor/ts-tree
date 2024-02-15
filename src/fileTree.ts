@@ -9,6 +9,7 @@ type FileTree = {
   path: string;
   name: string;
   meta?: unknown;
+  usedExports: string[];
   children: FileTree[];
 };
 
@@ -16,6 +17,7 @@ const buildFileTree = (
   project: Project,
   filePath: string,
   parentId?: UUID,
+  usedExports: string[] = [],
   additionalInfo: Record<string, unknown> = {},
 ) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
@@ -32,15 +34,19 @@ const buildFileTree = (
     name: baseName,
     parentId,
     meta: additionalFileInfo,
+    usedExports: usedExports,
     children: [],
   };
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const namedBindings = importDeclaration.getImportClause()?.getNamedBindings();
     if (Node.isNamedImports(namedBindings)) {
-      const paths = new Set<string>();
+      const paths: Record<string, string[]> = {};
       namedBindings.getElements().forEach((named) => {
-        const nodes = named.getNameNode().getDefinitionNodes();
-        nodes.forEach((node) => {
+        const nameNode = named.getNameNode();
+        const importedName = nameNode.getText();
+
+        const definitionNodes = nameNode.getDefinitionNodes();
+        definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
           if (
             !path.includes('node_modules') &&
@@ -48,13 +54,17 @@ const buildFileTree = (
             !Node.isInterfaceDeclaration(node) &&
             !Node.isEnumDeclaration(node)
           ) {
-            paths.add(path);
+            if (paths[path]) {
+              paths[path].push(importedName);
+            } else {
+              paths[path] = [importedName];
+            }
           }
         });
       });
-      const fileImports = [...Array.from(paths)];
-      fileImports.forEach((fileImport) => {
-        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, additionalInfo));
+
+      Object.entries(paths).forEach(([fileImport, value]) => {
+        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, value, additionalInfo));
       });
     }
   });
@@ -66,5 +76,5 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
     tsConfigFilePath: 'tsconfig.json',
   });
 
-  return buildFileTree(project, filePath, undefined, additionalInfo);
+  return buildFileTree(project, filePath, undefined, [], additionalInfo);
 };
