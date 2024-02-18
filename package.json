@@ -2,9 +2,10 @@
   "name": "ts-tree",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
     "bench": "tsx test/bench.ts > test/bench-result.json && prettier --write test/bench-result.json"
   },
   "keywords": [],

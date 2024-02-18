@@ -25,6 +25,11 @@ tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.
 - [ ] pass meta info about files to folder tree
 - [x] arg parser for file tree
 - [x] include used export by parent
+- [ ] check imports from same file on different lines
+- [ ] handle default import
+- [x] build package
+- [ ] handle running not from project root directory
+- [ ] piblish to npm
 
 ## Tech Debt
 
