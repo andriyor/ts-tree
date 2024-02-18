@@ -28,7 +28,7 @@ tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.
 - [ ] check imports from same file on different lines
 - [ ] handle default import
 - [x] build package
-- [ ] handle running not from project root directory
+- [x] use tsconfig related to passed file path to allow running not from project root directory
 - [ ] piblish to npm
 
 ## Tech Debt

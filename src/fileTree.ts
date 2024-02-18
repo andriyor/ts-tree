@@ -2,6 +2,7 @@ import path from 'node:path';
 import crypto, { UUID } from 'node:crypto';
 
 import { Project, SyntaxKind, Node } from 'ts-morph';
+import { findUpSync } from 'find-up';
 
 type FileTree = {
   id: UUID;
@@ -72,8 +73,9 @@ const buildFileTree = (
 };
 
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
+  const tsConfigFilePath = findUpSync('tsconfig.json', { cwd: filePath });
   const project = new Project({
-    tsConfigFilePath: 'tsconfig.json',
+    tsConfigFilePath,
   });
 
   return buildFileTree(project, filePath, undefined, [], additionalInfo);
