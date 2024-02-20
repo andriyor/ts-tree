@@ -2,9 +2,9 @@ import path from 'node:path';
 import crypto, { UUID } from 'node:crypto';
 
 import { Project, SyntaxKind, Node } from 'ts-morph';
-import { findUpSync } from 'find-up';
+import findUp from 'find-up';
 
-type FileTree = {
+export type FileTree = {
   id: UUID;
   parentId?: UUID;
   path: string;
@@ -48,6 +48,14 @@ const buildFileTree = (
 
         const definitionNodes = nameNode.getDefinitionNodes();
         definitionNodes.forEach((node) => {
+          // ignore as const variable
+          if (Node.isVariableDeclaration(node)) {
+            const initializer = node.getInitializer();
+            if (Node.isAsExpression(initializer)) {
+              return
+            }    
+          }
+          
           const path = node.getSourceFile().getFilePath();
           if (
             !path.includes('node_modules') &&
@@ -73,7 +81,7 @@ const buildFileTree = (
 };
 
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
-  const tsConfigFilePath = findUpSync('tsconfig.json', { cwd: filePath });
+  const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: filePath });
   const project = new Project({
     tsConfigFilePath,
   });

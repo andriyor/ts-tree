@@ -4,6 +4,7 @@ import { helper } from './helper';
 import { User } from './type';
 import { KeyPair } from './interface';
 import { Direction } from './enum';
+import { DirectionConst } from './asConst';
 
 console.log('main');
 console.log(deep);
@@ -16,3 +17,5 @@ console.log(helper);
 const keyPair: KeyPair = { key: 1, value: 'value' };
 const direction = Direction.Down;
 console.log(direction);
+console.log(DirectionConst);
+

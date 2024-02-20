@@ -64,6 +64,11 @@
               ]
             }
           ]
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/asConst.ts",
+          "name": "asConst.ts",
+          "children": []
         }
       ]
     },
