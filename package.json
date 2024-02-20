@@ -1,6 +1,6 @@
 {
   "name": "@andriyorehov/ts-graph",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "build/index.js",
   "scripts": {
@@ -30,5 +30,8 @@
     "access": "public"
   },
   "homepage": "https://github.com/andriyor/ts-tree#readme",
-  "repository": "github:andriyor/ts-tree"
+  "repository": "github:andriyor/ts-tree",
+  "files": [
+    "/build"
+  ]
 }
