@@ -87,6 +87,14 @@
           ]
         }
       ]
+    },
+    {
+      "path": "test/test-project/default.ts",
+      "name": "default.ts",
+      "usedExports": [
+        "defaultSum"
+      ],
+      "children": []
     }
   ]
 }

@@ -12,10 +12,6 @@ type Tree = {
   children: Tree[];
 };
 
-export const trimQuotes = (str: string) => {
-  return str.slice(1, -1);
-};
-
 export const buildTree = (data: FileInfo[]) => {
   const tree: Record<string, Tree> = {};
 

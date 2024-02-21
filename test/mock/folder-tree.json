@@ -3,6 +3,11 @@
   "name": "Root",
   "children": [
     {
+      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
+      "name": "default.ts",
+      "children": []
+    },
+    {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/enum.ts",
       "name": "enum.ts",
       "children": []

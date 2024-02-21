@@ -21,6 +21,11 @@
     ]
   },
   {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
+    "name": "default.ts",
+    "imports": []
+  },
+  {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/enum.ts",
     "name": "enum.ts",
     "imports": []

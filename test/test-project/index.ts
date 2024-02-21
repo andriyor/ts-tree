@@ -5,6 +5,7 @@ import { User } from './type';
 import { KeyPair } from './interface';
 import { Direction } from './enum';
 import { DirectionConst } from './asConst';
+import defaultSum from './default';
 
 console.log('main');
 console.log(deep);
@@ -18,4 +19,4 @@ const keyPair: KeyPair = { key: 1, value: 'value' };
 const direction = Direction.Down;
 console.log(direction);
 console.log(DirectionConst);
-
+console.log(defaultSum(1, 2));

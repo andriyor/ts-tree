@@ -1,8 +1,9 @@
 import path from 'node:path';
 import crypto, { UUID } from 'node:crypto';
 
-import { Project, SyntaxKind, Node } from 'ts-morph';
+import { Project, SyntaxKind, Node, SourceFile, ts, CompilerOptions } from 'ts-morph';
 import findUp from 'find-up';
+import { trimQuotes } from './shared';
 
 export type FileTree = {
   id: UUID;
@@ -12,6 +13,31 @@ export type FileTree = {
   meta?: unknown;
   usedExports: string[];
   children: FileTree[];
+};
+
+export const getResolvedFileName = (moduleName: string, containingFile: string, tsOptions: CompilerOptions) => {
+  const resolvedModuleName = ts.resolveModuleName(moduleName, containingFile, tsOptions, ts.sys);
+  if (resolvedModuleName.resolvedModule?.resolvedFileName) {
+    if (resolvedModuleName.resolvedModule.resolvedFileName.includes(process.cwd())) {
+      return resolvedModuleName.resolvedModule?.resolvedFileName;
+    } else {
+      // handle alias
+      return path.join(process.cwd(), resolvedModuleName.resolvedModule.resolvedFileName);
+    }
+  }
+  return '';
+};
+
+const isValidNode = (node: Node) => {
+  // ignore as const variable
+  if (Node.isVariableDeclaration(node)) {
+    const initializer = node.getInitializer();
+    if (Node.isAsExpression(initializer)) {
+      return false;
+    }
+  }
+
+  return !(Node.isTypeAliasDeclaration(node) || Node.isInterfaceDeclaration(node) || Node.isEnumDeclaration(node));
 };
 
 const buildFileTree = (
@@ -39,7 +65,19 @@ const buildFileTree = (
     children: [],
   };
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
-    const namedBindings = importDeclaration.getImportClause()?.getNamedBindings();
+    const importClause = importDeclaration.getImportClause();
+    const namedBindings = importClause?.getNamedBindings();
+
+    // handle default import
+    // https://github.com/dsherret/ts-morph/issues/1507
+    if (importClause && namedBindings === undefined) {
+      const importName = importClause.getText();
+      const importPath = importDeclaration.getModuleSpecifier().getText();
+      const unquotedPath = trimQuotes(importPath);
+      const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
+      fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, [importName], additionalInfo));
+    }
+
     if (Node.isNamedImports(namedBindings)) {
       const paths: Record<string, string[]> = {};
       namedBindings.getElements().forEach((named) => {
@@ -48,21 +86,8 @@ const buildFileTree = (
 
         const definitionNodes = nameNode.getDefinitionNodes();
         definitionNodes.forEach((node) => {
-          // ignore as const variable
-          if (Node.isVariableDeclaration(node)) {
-            const initializer = node.getInitializer();
-            if (Node.isAsExpression(initializer)) {
-              return
-            }    
-          }
-          
           const path = node.getSourceFile().getFilePath();
-          if (
-            !path.includes('node_modules') &&
-            !Node.isTypeAliasDeclaration(node) &&
-            !Node.isInterfaceDeclaration(node) &&
-            !Node.isEnumDeclaration(node)
-          ) {
+          if (!path.includes('node_modules') && isValidNode(node)) {
             if (paths[path]) {
               paths[path].push(importedName);
             } else {
@@ -72,8 +97,8 @@ const buildFileTree = (
         });
       });
 
-      Object.entries(paths).forEach(([fileImport, value]) => {
-        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, value, additionalInfo));
+      Object.entries(paths).forEach(([fileImport, importedNames]) => {
+        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, importedNames, additionalInfo));
       });
     }
   });

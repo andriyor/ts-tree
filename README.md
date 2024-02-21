@@ -1,11 +1,18 @@
 # ts-tree
 
-## CLI
-
-run from project root
+## Install 
 
 ```shell
-tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.container.tsx' -o='../../../personal/coverage-tree/src/my-tree.json' -m='coverage/coverage-summary.json'
+npm i @andriyorehov/ts-graph
+```
+
+## Usage
+
+```ts
+import { getTreeByFile } from '@andriyorehov/ts-graph';
+
+const tree = getTreeByFile('filePath.ts');
+console.dir(tree, { depth: null });
 ```
 
 ## TODO
@@ -26,10 +33,10 @@ tsx ../../../personal/ts-tree/src/fileTree.ts -r='src/containers/bank/form/form.
 - [x] arg parser for file tree
 - [x] include used export by parent
 - [ ] check imports from same file on different lines
-- [ ] handle default import
+- [x] handle default import
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
-- [ ] piblish to npm
+- [x] piblish to npm
 
 ## Tech Debt
 
