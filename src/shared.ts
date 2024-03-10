@@ -18,16 +18,19 @@ export const isValidNode = (node: Node) => {
   return !(Node.isTypeAliasDeclaration(node) || Node.isInterfaceDeclaration(node) || Node.isEnumDeclaration(node));
 };
 
-
 export const getResolvedFileName = (moduleName: string, containingFile: string, tsOptions: CompilerOptions) => {
   const resolvedModuleName = ts.resolveModuleName(moduleName, containingFile, tsOptions, ts.sys);
-  if (resolvedModuleName.resolvedModule?.resolvedFileName) {
-    if (resolvedModuleName.resolvedModule.resolvedFileName.includes(process.cwd())) {
-      return resolvedModuleName.resolvedModule?.resolvedFileName;
-    } else {
-      // handle alias
-      return path.join(process.cwd(), resolvedModuleName.resolvedModule.resolvedFileName);
+  if (resolvedModuleName.resolvedModule) {
+    if (
+      !resolvedModuleName.resolvedModule.isExternalLibraryImport &&
+      ['.js', '.ts', '.jsx', '.tsx'].includes(resolvedModuleName.resolvedModule.extension)
+    ) {
+      if (resolvedModuleName.resolvedModule.resolvedFileName.includes(process.cwd())) {
+        return resolvedModuleName.resolvedModule?.resolvedFileName;
+      } else {
+        // handle alias
+        return path.join(process.cwd(), resolvedModuleName.resolvedModule.resolvedFileName);
+      }
     }
   }
-  return '';
 };
