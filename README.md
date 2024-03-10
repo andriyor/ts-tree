@@ -44,3 +44,4 @@ console.dir(tree, { depth: null });
 - [ ] reuse code between file and folder tree builder
 - [ ] cache file tree builer
 - [ ] upgrade `find-up` to latest version with ESM
+- [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple)
