@@ -26,7 +26,8 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts"
     ]
   },
   {

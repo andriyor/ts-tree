@@ -37,7 +37,7 @@ console.dir(tree, { depth: null });
 - [x] include used export by parent
 - [ ] check imports from same file on different lines
 - [x] handle default import for file tree
-- [ ] handle default import for folder tree
+- [x] handle default import for folder tree
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm

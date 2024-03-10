@@ -1,6 +1,7 @@
 import findUp from 'find-up';
 import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
-import { isValidNode } from './shared';
+
+import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
 
 type FileInfo = {
   path: string;
@@ -50,7 +51,7 @@ export const buildTree = (data: FileInfo[]) => {
   return rootNode;
 };
 
-const getImports = (sourceFile: SourceFile) => {
+const getImports = (sourceFile: SourceFile, project: Project) => {
   const currentFilePath = sourceFile.getFilePath();
   const baseName = sourceFile.getBaseName();
   const fileInfo: FileInfo = {
@@ -61,7 +62,19 @@ const getImports = (sourceFile: SourceFile) => {
   const pathsToExclude = new Set<string>();
 
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
-    const namedBindings = importDeclaration.getImportClause()?.getNamedBindings();
+    const importClause = importDeclaration.getImportClause();
+    const namedBindings = importClause?.getNamedBindings();
+
+    // handle default import
+    // https://github.com/dsherret/ts-morph/issues/1507
+    if (importClause && namedBindings === undefined) {
+      const importName = importClause.getText();
+      const importPath = importDeclaration.getModuleSpecifier().getText();
+      const unquotedPath = trimQuotes(importPath);
+      const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
+      fileInfo.imports.push(fileImport);
+    }
+
     if (Node.isNamedImports(namedBindings)) {
       const paths = new Set<string>();
       namedBindings.getElements().forEach((named) => {
@@ -94,7 +107,7 @@ export const getFilesInfo = (path: string) => {
 
   const sourceFiles = project.getSourceFiles(path);
   sourceFiles.forEach((sourceFile) => {
-    const { fileInfo, pathsToExclude } = getImports(sourceFile);
+    const { fileInfo, pathsToExclude } = getImports(sourceFile, project);
     filesInfo.push(fileInfo);
     toExclude.push(...pathsToExclude);
   });
