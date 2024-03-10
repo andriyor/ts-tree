@@ -28,7 +28,7 @@ console.dir(tree, { depth: null });
 - [x] ignore types/interface/enum/`as const` dependencies from folder tree
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
-- [ ] exclude barrel files from folder tree
+- [x] exclude barrel files from folder tree
 - [x] guarantee id uniqueness of file tree
 - [ ] guarantee id uniqueness of folder tree
 - [x] pass meta info about files to file tree
@@ -44,6 +44,7 @@ console.dir(tree, { depth: null });
 
 ## Tech Debt
 
+- [ ] try https://github.com/thepassle/module-graph
 - [ ] add test for id uniqueness
 - [ ] reuse code between file and folder tree builder
 - [ ] cache file tree builer

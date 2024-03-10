@@ -46,10 +46,5 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts"
     ]
-  },
-  {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",
-    "name": "index.ts",
-    "imports": []
   }
 ]

@@ -97,6 +97,19 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
   return { fileInfo, pathsToExclude: [...Array.from(pathsToExclude)] };
 };
 
+const isBarrelFile = (sourceFile: SourceFile) => {
+  let isBarrel = true;
+  sourceFile.forEachChild((childNode) => {
+    if (
+      !(Node.isExportDeclaration(childNode) && childNode.getModuleSpecifier()) &&
+      !(childNode.getKindName() === 'EndOfFileToken')
+    ) {
+      isBarrel = false;
+    }
+  });
+  return isBarrel;
+};
+
 export const getFilesInfo = (path: string) => {
   const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: path });
   const project = new Project({
@@ -107,9 +120,12 @@ export const getFilesInfo = (path: string) => {
 
   const sourceFiles = project.getSourceFiles(path);
   sourceFiles.forEach((sourceFile) => {
-    const { fileInfo, pathsToExclude } = getImports(sourceFile, project);
-    filesInfo.push(fileInfo);
-    toExclude.push(...pathsToExclude);
+    const isBarrel = isBarrelFile(sourceFile);
+    if (!isBarrel) {
+      const { fileInfo, pathsToExclude } = getImports(sourceFile, project);
+      filesInfo.push(fileInfo);
+      toExclude.push(...pathsToExclude);
+    }
   });
 
   return filesInfo.filter((fileInfo) => !toExclude.includes(fileInfo.path));
