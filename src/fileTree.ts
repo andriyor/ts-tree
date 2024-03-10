@@ -51,7 +51,9 @@ const buildFileTree = (
       const importPath = importDeclaration.getModuleSpecifier().getText();
       const unquotedPath = trimQuotes(importPath);
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
-      fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, [importName], additionalInfo));
+      if (!fileImport.includes('node_modules') && ['.js', '.ts', '.jsx', '.tsx'].some(ext => fileImport.includes(ext))) {
+        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, [importName], additionalInfo));
+      }
     }
 
     if (Node.isNamedImports(namedBindings)) {

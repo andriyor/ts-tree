@@ -76,7 +76,9 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
       const importPath = importDeclaration.getModuleSpecifier().getText();
       const unquotedPath = trimQuotes(importPath);
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
-      fileInfo.imports.push(fileImport);
+      if (!fileImport.includes('node_modules') && ['.js', '.ts', '.jsx', '.tsx'].some(ext => fileImport.includes(ext))) {
+        fileInfo.imports.push(fileImport);
+      }
     }
 
     if (Node.isNamedImports(namedBindings)) {
