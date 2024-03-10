@@ -3,7 +3,8 @@ import path from 'node:path';
 import { getTreeByFile } from '../src/fileTree';
 import { getTreeByFolder } from '../src/folderTree';
 
-console.log(getTreeByFolder('test/test-project/**/*.ts'));
+console.dir(getTreeByFolder('test/test-project/**/*.ts'), { depth: null });
+// console.log(getTreeByFolder('/Users/aoriekhov/git/work/poynt/mercury-clean/src/pages/settings/**/*.{tsx,ts,js}'));
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
 // console.log(info);

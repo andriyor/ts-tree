@@ -30,7 +30,7 @@ console.dir(tree, { depth: null });
 - [x] exclude barrel files from file tree
 - [x] exclude barrel files from folder tree
 - [x] guarantee id uniqueness of file tree
-- [ ] guarantee id uniqueness of folder tree
+- [x] guarantee id uniqueness of folder tree
 - [x] pass meta info about files to file tree
 - [ ] pass meta info about files to folder tree
 - [x] arg parser for file tree
@@ -41,6 +41,7 @@ console.dir(tree, { depth: null });
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm
+- [ ] handle files outside of folder tree
 
 ## Tech Debt
 

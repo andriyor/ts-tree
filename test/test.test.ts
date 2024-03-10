@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { remove } from 'wild-wild-path';
 
-import { buildTree, getFilesInfo, getTreeByFolder } from '../src/folderTree';
+import { buildTree, getFilesInfo, getProjectTreeByFolder, getTreeByFolder } from '../src/folderTree';
 import { getTreeByFile } from '../src/fileTree';
 
 import folderTreeMock from './mock/folder-tree.json';
 import folderInfoMock from './mock/folder-info.json';
+import folderDeepTreeMock from './mock/folder-deep-tree.json';
 
 import fileTreeMock from './mock/file-tree.json';
 import fileMetaTreeMock from './mock/file-additional-tree.json';
@@ -21,9 +22,16 @@ describe('ts-tree', () => {
     expect(tree).toEqual(folderTreeMock);
   });
 
+  it('getProjectTreeByFolder', () => {
+    const tree = getProjectTreeByFolder('test/test-project/**/*.ts');
+    expect(tree).toEqual(folderTreeMock);
+  });
+
   it('getTreeByFolder', () => {
     const tree = getTreeByFolder('test/test-project/**/*.ts');
-    expect(tree).toEqual(folderTreeMock);
+    const withoutIds = remove(tree, '**.id');
+    const withoutParentIds = remove(withoutIds, '**.parentId');
+    expect(withoutParentIds).toEqual(folderDeepTreeMock);
   });
 
   describe('getTreeByFile', () => {

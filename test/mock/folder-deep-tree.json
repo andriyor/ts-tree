@@ -1,0 +1,122 @@
+{
+  "path": "",
+  "name": "Root",
+  "usedExports": [],
+  "children": [
+    {
+      "path": "test/test-project/index.ts",
+      "name": "index.ts",
+      "usedExports": [],
+      "children": [
+        {
+          "path": "test/test-project/deep.ts",
+          "name": "deep.ts",
+          "usedExports": [
+            "deep"
+          ],
+          "children": [
+            {
+              "path": "test/test-project/nested.ts",
+              "name": "nested.ts",
+              "usedExports": [
+                "nested"
+              ],
+              "children": []
+            },
+            {
+              "path": "test/test-project/nested2.ts",
+              "name": "nested2.ts",
+              "usedExports": [
+                "nested2"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "path": "test/test-project/deep2.ts",
+          "name": "deep2.ts",
+          "usedExports": [
+            "deep2"
+          ],
+          "children": [
+            {
+              "path": "test/test-project/nested.ts",
+              "name": "nested.ts",
+              "usedExports": [
+                "nested"
+              ],
+              "children": []
+            },
+            {
+              "path": "test/test-project/nested2.ts",
+              "name": "nested2.ts",
+              "usedExports": [
+                "nested2",
+                "nested3"
+              ],
+              "children": []
+            }
+          ]
+        },
+        {
+          "path": "test/test-project/helper/helper.ts",
+          "name": "helper.ts",
+          "usedExports": [
+            "helper"
+          ],
+          "children": [
+            {
+              "path": "test/test-project/deep.ts",
+              "name": "deep.ts",
+              "usedExports": [
+                "deep"
+              ],
+              "children": [
+                {
+                  "path": "test/test-project/nested.ts",
+                  "name": "nested.ts",
+                  "usedExports": [
+                    "nested"
+                  ],
+                  "children": []
+                },
+                {
+                  "path": "test/test-project/nested2.ts",
+                  "name": "nested2.ts",
+                  "usedExports": [
+                    "nested2"
+                  ],
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "test/test-project/default.ts",
+          "name": "default.ts",
+          "usedExports": [
+            "defaultSum"
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "path": "test/test-project/index2.ts",
+      "name": "index2.ts",
+      "usedExports": [],
+      "children": [
+        {
+          "path": "test/test-project/nested.ts",
+          "name": "nested.ts",
+          "usedExports": [
+            "nested"
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

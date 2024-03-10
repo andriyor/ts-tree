@@ -2,7 +2,7 @@ import fs from 'node:fs';
 
 import { remove } from 'wild-wild-path';
 
-import { buildTree, getFilesInfo } from '../src/folderTree';
+import { buildTree, getFilesInfo, getTreeByFolder } from '../src/folderTree';
 import { getTreeByFile } from '../src/fileTree';
 
 const folderInfo = getFilesInfo('test/test-project/**/*.ts');
@@ -25,3 +25,12 @@ const fileAdditionalTree = getTreeByFile('test/test-project/index.ts', meta);
 const additionalWithoutIds = remove(fileAdditionalTree, '**.id');
 const AdditionalwithoutParentIds = remove(additionalWithoutIds, '**.parentId');
 fs.writeFileSync('./test/mock/file-additional-tree.json', JSON.stringify(AdditionalwithoutParentIds, null, 2));
+
+
+const folderDeepTree = getTreeByFolder('test/test-project/**/*.ts');
+const withoutIdsTree = remove(folderDeepTree, '**.id');
+const withoutParentIdsTree = remove(withoutIdsTree, '**.parentId');
+fs.writeFileSync('./test/mock/folder-deep-tree.json', JSON.stringify(withoutParentIdsTree, null, 2));
+
+// const nestedFolderDeepTree = getTreeByFolder('test/test-project/**/*.ts');
+// fs.writeFileSync('./test/mock/nested-folder-deep-tree.json', JSON.stringify(nestedFolderDeepTree, null, 2));

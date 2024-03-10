@@ -1,7 +1,11 @@
+import crypto from 'node:crypto';
+
 import findUp from 'find-up';
 import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
 
 import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
+import { FileTree, getTreeByFile } from './fileTree';
+
 
 type FileInfo = {
   path: string;
@@ -131,7 +135,28 @@ export const getFilesInfo = (path: string) => {
   return filesInfo.filter((fileInfo) => !toExclude.includes(fileInfo.path));
 };
 
-export const getTreeByFolder = (folderPath: string) => {
+export const getProjectTreeByFolder = (folderPath: string) => {
   const info = getFilesInfo(folderPath);
   return buildTree(info);
+};
+
+export const getTreeByFolder = (folderPath: string) => {
+  const info = getFilesInfo(folderPath);
+  const tree = buildTree(info);
+
+  const fileTree: FileTree = {
+    id: crypto.randomUUID(),
+    path: '',
+    name: 'Root',
+    parentId: undefined,
+    meta: undefined,
+    usedExports: [],
+    children: [],
+  };
+
+  for (const rootChildren of tree.children) {
+    const tree = getTreeByFile(rootChildren.path);
+    fileTree.children.push(tree);
+  }
+  return fileTree;
 };
