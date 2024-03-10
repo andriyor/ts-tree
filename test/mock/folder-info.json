@@ -27,7 +27,8 @@
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts"
     ]
   },
   {
@@ -52,6 +53,13 @@
     "name": "helper.ts",
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts"
+    ]
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
+    "name": "use-module-outside-dir.ts",
+    "imports": [
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts"
     ]
   }
 ]

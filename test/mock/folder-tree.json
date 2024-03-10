@@ -64,6 +64,17 @@
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
           "name": "default.ts",
           "children": []
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
+          "name": "use-module-outside-dir.ts",
+          "children": [
+            {
+              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "name": "nested.ts",
+              "children": []
+            }
+          ]
         }
       ]
     },

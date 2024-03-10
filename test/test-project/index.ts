@@ -6,6 +6,7 @@ import { KeyPair } from './interface';
 import { Direction } from './enum';
 import { DirectionConst } from './asConst';
 import defaultSum from './default';
+import { useModuleOutsideDir } from './nested/use-module-outside-dir';
 
 console.log('main');
 console.log(deep);
@@ -20,3 +21,4 @@ const direction = Direction.Down;
 console.log(direction);
 console.log(DirectionConst);
 console.log(defaultSum(1, 2));
+console.log(useModuleOutsideDir);

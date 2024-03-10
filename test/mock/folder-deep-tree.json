@@ -100,6 +100,23 @@
             "defaultSum"
           ],
           "children": []
+        },
+        {
+          "path": "test/test-project/nested/use-module-outside-dir.ts",
+          "name": "use-module-outside-dir.ts",
+          "usedExports": [
+            "useModuleOutsideDir"
+          ],
+          "children": [
+            {
+              "path": "test/test-project/nested.ts",
+              "name": "nested.ts",
+              "usedExports": [
+                "nested"
+              ],
+              "children": []
+            }
+          ]
         }
       ]
     },
