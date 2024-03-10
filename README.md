@@ -26,6 +26,7 @@ console.dir(tree, { depth: null });
 - [x] alias handling
 - [x] ignore types/interface/enum/`as const` dependencies from file tree
 - [x] ignore types/interface/enum/`as const` dependencies from folder tree
+- [ ] ignore object which used only in types for folder tree
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
 - [x] exclude barrel files from folder tree
