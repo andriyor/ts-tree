@@ -1,5 +1,6 @@
 import findUp from 'find-up';
 import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
+import { isValidNode } from './shared';
 
 type FileInfo = {
   path: string;
@@ -67,11 +68,7 @@ const getImports = (sourceFile: SourceFile) => {
         const nodes = named.getNameNode().getDefinitionNodes();
         nodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
-          if (
-            !Node.isTypeAliasDeclaration(node) &&
-            !Node.isInterfaceDeclaration(node) &&
-            !Node.isEnumDeclaration(node)
-          ) {
+          if (isValidNode(node)) {
             if (!path.includes('node_modules')) {
               paths.add(path);
             }

@@ -15,6 +15,9 @@ const tree = getTreeByFile('filePath.ts');
 console.dir(tree, { depth: null });
 ```
 
+## How it works
+
+
 ## TODO
 
 - [x] tree by folder dependencies
@@ -22,7 +25,7 @@ console.dir(tree, { depth: null });
 - [x] ignore third-party dependencies
 - [x] alias handling
 - [x] ignore types/interface/enum/`as const` dependencies from file tree
-- [x] ignore types/interface/enum dependencies from folder tree
+- [x] ignore types/interface/enum/`as const` dependencies from folder tree
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
 - [ ] exclude barrel files from folder tree
@@ -33,7 +36,8 @@ console.dir(tree, { depth: null });
 - [x] arg parser for file tree
 - [x] include used export by parent
 - [ ] check imports from same file on different lines
-- [x] handle default import
+- [x] handle default import for file tree
+- [ ] handle default import for folder tree
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm

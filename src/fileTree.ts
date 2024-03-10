@@ -1,9 +1,10 @@
 import path from 'node:path';
 import crypto, { UUID } from 'node:crypto';
 
-import { Project, SyntaxKind, Node, SourceFile, ts, CompilerOptions } from 'ts-morph';
+import { Project, SyntaxKind, Node, ts, CompilerOptions } from 'ts-morph';
 import findUp from 'find-up';
-import { trimQuotes } from './shared';
+
+import { isValidNode, trimQuotes } from './shared';
 
 export type FileTree = {
   id: UUID;
@@ -26,18 +27,6 @@ export const getResolvedFileName = (moduleName: string, containingFile: string, 
     }
   }
   return '';
-};
-
-const isValidNode = (node: Node) => {
-  // ignore as const variable
-  if (Node.isVariableDeclaration(node)) {
-    const initializer = node.getInitializer();
-    if (Node.isAsExpression(initializer)) {
-      return false;
-    }
-  }
-
-  return !(Node.isTypeAliasDeclaration(node) || Node.isInterfaceDeclaration(node) || Node.isEnumDeclaration(node));
 };
 
 const buildFileTree = (

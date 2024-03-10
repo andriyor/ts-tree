@@ -1,10 +1,5 @@
 [
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/asConst.ts",
-    "name": "asConst.ts",
-    "imports": []
-  },
-  {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
     "name": "deep.ts",
     "imports": [
@@ -31,8 +26,7 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/asConst.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts"
     ]
   },
   {
