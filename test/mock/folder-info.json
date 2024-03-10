@@ -26,11 +26,6 @@
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/enum.ts",
-    "name": "enum.ts",
-    "imports": []
-  },
-  {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
     "name": "index.ts",
     "imports": [
@@ -41,11 +36,6 @@
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/interface.ts",
-    "name": "interface.ts",
-    "imports": []
-  },
-  {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
     "name": "nested.ts",
     "imports": []
@@ -53,11 +43,6 @@
   {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
     "name": "nested2.ts",
-    "imports": []
-  },
-  {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
-    "name": "type.ts",
     "imports": []
   },
   {

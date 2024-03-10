@@ -1,3 +1,4 @@
+import findUp from 'find-up';
 import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
 
 type FileInfo = {
@@ -56,6 +57,8 @@ const getImports = (sourceFile: SourceFile) => {
     name: baseName,
     imports: [],
   };
+  const pathsToExclude = new Set<string>();
+
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const namedBindings = importDeclaration.getImportClause()?.getNamedBindings();
     if (Node.isNamedImports(namedBindings)) {
@@ -65,35 +68,44 @@ const getImports = (sourceFile: SourceFile) => {
         nodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
           if (
-            !path.includes('node_modules') &&
             !Node.isTypeAliasDeclaration(node) &&
             !Node.isInterfaceDeclaration(node) &&
             !Node.isEnumDeclaration(node)
           ) {
-            paths.add(path);
+            if (!path.includes('node_modules')) {
+              paths.add(path);
+            }
+          } else {
+            pathsToExclude.add(path);
           }
         });
       });
       fileInfo.imports.push(...Array.from(paths));
     }
   });
-  return fileInfo;
+
+  return { fileInfo, pathsToExclude: [...Array.from(pathsToExclude)] };
 };
 
 export const getFilesInfo = (path: string) => {
+  const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: path });
   const project = new Project({
-    tsConfigFilePath: 'tsconfig.json',
+    tsConfigFilePath,
   });
   const filesInfo: FileInfo[] = [];
+  const toExclude: string[] = [];
+
   const sourceFiles = project.getSourceFiles(path);
   sourceFiles.forEach((sourceFile) => {
-    const fileInfo = getImports(sourceFile);
+    const { fileInfo, pathsToExclude } = getImports(sourceFile);
     filesInfo.push(fileInfo);
+    toExclude.push(...pathsToExclude);
   });
-  return filesInfo;
+
+  return filesInfo.filter((fileInfo) => !toExclude.includes(fileInfo.path));
 };
 
 export const getTreeByFolder = (folderPath: string) => {
-  const info = getFilesInfo('test/test-project/**/*.ts');
+  const info = getFilesInfo(folderPath);
   return buildTree(info);
 };

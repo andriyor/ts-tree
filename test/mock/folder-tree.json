@@ -8,11 +8,6 @@
       "children": []
     },
     {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/enum.ts",
-      "name": "enum.ts",
-      "children": []
-    },
-    {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
       "name": "index.ts",
       "children": [
@@ -76,16 +71,6 @@
           "children": []
         }
       ]
-    },
-    {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/interface.ts",
-      "name": "interface.ts",
-      "children": []
-    },
-    {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/type.ts",
-      "name": "type.ts",
-      "children": []
     },
     {
       "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/index.ts",

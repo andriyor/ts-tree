@@ -22,7 +22,7 @@ console.dir(tree, { depth: null });
 - [x] ignore third-party dependencies
 - [x] alias handling
 - [x] ignore types/interface/enum/`as const` dependencies from file tree
-- [ ] ignore types/interface/enum dependencies from folder tree
+- [x] ignore types/interface/enum dependencies from folder tree
 - [x] handle `ExportDeclaration` with moduleSpecifier
 - [x] exclude barrel files from file tree
 - [ ] exclude barrel files from folder tree
@@ -36,7 +36,7 @@ console.dir(tree, { depth: null });
 - [x] handle default import
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
-- [x] piblish to npm
+- [x] publish to npm
 
 ## Tech Debt
 

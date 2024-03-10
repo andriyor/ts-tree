@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getTreeByFile } from '../src/fileTree';
+import { getTreeByFolder } from '../src/folderTree';
+
+console.log(getTreeByFolder('test/test-project/**/*.ts'));
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
 // console.log(info);
@@ -9,16 +12,16 @@ import { getTreeByFile } from '../src/fileTree';
 // fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
 // fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 
-const filesInfo = getTreeByFile('test/test-project/index.ts');
-console.dir(filesInfo, { depth: null });
-
-console.log(path.relative('/foo/bar', '/foo/bar/baz.json'));
-console.log(
-  path.relative(
-    '/Users/aoriekhov/git/personal/ts-tree',
-    '/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts',
-  ),
-);
+// const filesInfo = getTreeByFile('test/test-project/index.ts');
+// console.dir(filesInfo, { depth: null });
+//
+// console.log(path.relative('/foo/bar', '/foo/bar/baz.json'));
+// console.log(
+//   path.relative(
+//     '/Users/aoriekhov/git/personal/ts-tree',
+//     '/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts',
+//   ),
+// );
 
 // fs.writeFileSync('./test/mock/file-info.json', JSON.stringify(filesInfo, null, 2));
 // const tree = buildTree(filesInfo);
