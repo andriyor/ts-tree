@@ -32,5 +32,7 @@ const withoutIdsTree = remove(folderDeepTree, '**.id');
 const withoutParentIdsTree = remove(withoutIdsTree, '**.parentId');
 fs.writeFileSync('./test/mock/folder-deep-tree.json', JSON.stringify(withoutParentIdsTree, null, 2));
 
-// const nestedFolderDeepTree = getTreeByFolder('test/test-project/**/*.ts');
-// fs.writeFileSync('./test/mock/nested-folder-deep-tree.json', JSON.stringify(nestedFolderDeepTree, null, 2));
+const nestedFolderDeepTreeNested = getTreeByFolder('test/test-project/nested/**/*.ts');
+const withoutIdsTreeNested = remove(nestedFolderDeepTreeNested, '**.id');
+const withoutParentIdsTreeNested = remove(withoutIdsTreeNested, '**.parentId');
+fs.writeFileSync('./test/mock/nested-folder-deep-tree.json', JSON.stringify(withoutParentIdsTreeNested, null, 2));

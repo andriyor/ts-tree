@@ -7,6 +7,7 @@ import { getTreeByFile } from '../src/fileTree';
 import folderTreeMock from './mock/folder-tree.json';
 import folderInfoMock from './mock/folder-info.json';
 import folderDeepTreeMock from './mock/folder-deep-tree.json';
+import nestedFolderDeepTreeMock from './mock/nested-folder-deep-tree.json';
 
 import fileTreeMock from './mock/file-tree.json';
 import fileMetaTreeMock from './mock/file-additional-tree.json';
@@ -32,6 +33,13 @@ describe('ts-tree', () => {
     const withoutIds = remove(tree, '**.id');
     const withoutParentIds = remove(withoutIds, '**.parentId');
     expect(withoutParentIds).toEqual(folderDeepTreeMock);
+  });
+
+  it('getTreeByFolder nested', () => {
+    const tree = getTreeByFolder('test/test-project/nested/**/*.ts');
+    const withoutIds = remove(tree, '**.id');
+    const withoutParentIds = remove(withoutIds, '**.parentId');
+    expect(withoutParentIds).toEqual(nestedFolderDeepTreeMock);
   });
 
   describe('getTreeByFile', () => {

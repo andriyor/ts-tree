@@ -41,7 +41,7 @@ console.dir(tree, { depth: null });
 - [x] build package
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm
-- [ ] handle files outside of folder tree
+- [x] handle files outside of folder tree
 
 ## Tech Debt
 
