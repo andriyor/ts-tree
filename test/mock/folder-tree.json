@@ -66,6 +66,17 @@
           "children": []
         }
       ]
+    },
+    {
+      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index2.ts",
+      "name": "index2.ts",
+      "children": [
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+          "name": "nested.ts",
+          "children": []
+        }
+      ]
     }
   ]
 }
