@@ -49,11 +49,6 @@
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInType.ts",
-    "name": "usedInType.ts",
-    "imports": []
-  },
-  {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
     "name": "helper.ts",
     "imports": [

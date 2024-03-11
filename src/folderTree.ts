@@ -134,7 +134,10 @@ export const getFilesInfo = (path: string) => {
     }
   });
 
-  return filesInfo.filter((fileInfo) => !toExclude.includes(fileInfo.path));
+  const ignoreInfo = filesInfo.filter((fileInfo) => toExclude.includes(fileInfo.path));
+  // TODO: need check that import used in types not used in code
+  const ignoreInfoPathWithImports = ignoreInfo.flatMap(info => [info.path, ...info.imports])
+  return  filesInfo.filter((fileInfo) => !ignoreInfoPathWithImports.includes(fileInfo.path));
 };
 
 export const getProjectTreeByFolder = (folderPath: string) => {

@@ -134,12 +134,6 @@
           "children": []
         }
       ]
-    },
-    {
-      "path": "test/test-project/usedInType.ts",
-      "name": "usedInType.ts",
-      "usedExports": [],
-      "children": []
     }
   ]
 }
