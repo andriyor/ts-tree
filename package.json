@@ -1,11 +1,11 @@
 {
   "name": "@andriyorehov/ts-graph",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "",
   "main": "build/index.js",
   "scripts": {
     "test": "vitest run",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "rm -rf build;tsc -p tsconfig.build.json",
     "bench": "tsx test/bench.ts > test/bench-result.json && prettier --write test/bench-result.json",
     "prepublishOnly": "npm run build"
   },

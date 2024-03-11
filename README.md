@@ -43,6 +43,7 @@ console.dir(tree, { depth: null });
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm
 - [x] handle files outside of folder tree
+- [ ] more performant getTreeByFolder
 
 ## Tech Debt
 
@@ -53,3 +54,11 @@ console.dir(tree, { depth: null });
 - [ ] upgrade `find-up` to latest version with ESM
 - [ ] try https://github.com/sindresorhus/find-up-simple
 - [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple)
+
+## Alternative
+
+[node-dependency-tree](https://github.com/dependents/node-dependency-tree) - used by [madge](https://github.com/pahen/madge) doesn't support ts alias [path mapping](https://github.com/dependents/node-dependency-tree/issues/135)
+
+[dependency-tree](https://github.com/canva-public/dependency-tree) - archived
+
+[module-graph](https://github.com/thepassle/module-graph) - just recently released and it looks like best solution
