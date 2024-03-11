@@ -6,7 +6,6 @@ import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
 import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
 import { FileTree, getTreeByFile } from './fileTree';
 
-
 type FileInfo = {
   path: string;
   name: string;
@@ -134,10 +133,15 @@ export const getFilesInfo = (path: string) => {
     }
   });
 
-  const ignoreInfo = filesInfo.filter((fileInfo) => toExclude.includes(fileInfo.path));
-  // TODO: need check that import used in types not used in code
-  const ignoreInfoPathWithImports = ignoreInfo.flatMap(info => [info.path, ...info.imports])
-  return  filesInfo.filter((fileInfo) => !ignoreInfoPathWithImports.includes(fileInfo.path));
+  const typesInfo = filesInfo.filter((fileInfo) => toExclude.includes(fileInfo.path));
+  const typesPaths = typesInfo.map((info) => info.path);
+  const typesImports = typesInfo.flatMap((info) => info.imports);
+
+  const withoutTypesInfo = filesInfo.filter((fileInfo) => !typesPaths.includes(fileInfo.path));
+  const allImportsInCode = withoutTypesInfo.flatMap((info) => info.imports);
+  const usedOnlyInTypes = typesImports.filter((ignored) => !allImportsInCode.includes(ignored));
+
+  return withoutTypesInfo.filter((info) => !usedOnlyInTypes.includes(info.path));
 };
 
 export const getProjectTreeByFolder = (folderPath: string) => {

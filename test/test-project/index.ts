@@ -8,6 +8,8 @@ import { DirectionConst } from './asConst';
 import defaultSum from './default';
 import { useModuleOutsideDir } from './nested/use-module-outside-dir';
 import { TestProject } from './typeWithImport';
+import { TestProjectCode } from './typeWithImportCode';
+import { usedInTypeAndCode } from './usedInTypeAndCode';
 
 console.log('main');
 console.log(deep);
@@ -31,3 +33,12 @@ const t: TestProject = {
   }
 }
 console.log(t);
+
+const testProjectCode: TestProjectCode = {
+  user: {
+    filed: 'some'
+  }
+}
+console.log(testProjectCode);
+
+console.log(usedInTypeAndCode);

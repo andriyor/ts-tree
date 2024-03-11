@@ -75,6 +75,11 @@
               "children": []
             }
           ]
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
+          "name": "usedInTypeAndCode.ts",
+          "children": []
         }
       ]
     },
