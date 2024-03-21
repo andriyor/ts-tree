@@ -165,7 +165,7 @@ export const getTreeByFolder = (folderPath: string) => {
 
   for (const rootChildren of tree.children) {
     const tree = getTreeByFile(rootChildren.path);
-    fileTree.children.push(tree);
+    fileTree.children.push(tree.fileTree);
   }
   return fileTree;
 };

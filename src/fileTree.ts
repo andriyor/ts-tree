@@ -21,6 +21,7 @@ const buildFileTree = (
   filePath: string,
   parentId?: UUID,
   usedExports: string[] = [],
+  flatTree: Record<string, FileTree> = {},
   additionalInfo: Record<string, unknown> = {},
 ) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
@@ -40,6 +41,8 @@ const buildFileTree = (
     usedExports: usedExports,
     children: [],
   };
+  flatTree[fileTree.path] = { ...fileTree, children: [] };
+
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const importClause = importDeclaration.getImportClause();
     const namedBindings = importClause?.getNamedBindings();
@@ -52,7 +55,15 @@ const buildFileTree = (
       const unquotedPath = trimQuotes(importPath);
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
       if (fileImport) {
-        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, [importName], additionalInfo));
+        const childFileTree = buildFileTree(
+          project,
+          fileImport,
+          fileTree.id,
+          [importName],
+          flatTree,
+          additionalInfo,
+        ).fileTree;
+        fileTree.children.push(childFileTree);
       }
     }
 
@@ -76,11 +87,19 @@ const buildFileTree = (
       });
 
       Object.entries(paths).forEach(([fileImport, importedNames]) => {
-        fileTree.children.push(buildFileTree(project, fileImport, fileTree.id, importedNames, additionalInfo));
+        const childFileTree = buildFileTree(
+          project,
+          fileImport,
+          fileTree.id,
+          importedNames,
+          flatTree,
+          additionalInfo,
+        ).fileTree;
+        fileTree.children.push(childFileTree);
       });
     }
   });
-  return fileTree;
+  return { fileTree, flatTree };
 };
 
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
@@ -89,5 +108,5 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
     tsConfigFilePath,
   });
 
-  return buildFileTree(project, filePath, undefined, [], additionalInfo);
+  return buildFileTree(project, filePath, undefined, [], {}, additionalInfo);
 };

@@ -1,6 +1,6 @@
 {
   "name": "@andriyorehov/ts-graph",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
   "scripts": {

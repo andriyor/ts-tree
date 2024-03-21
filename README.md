@@ -43,7 +43,9 @@ console.dir(tree, { depth: null });
 - [x] use tsconfig related to passed file path to allow running not from project root directory
 - [x] publish to npm
 - [x] handle files outside of folder tree
+- [x] return flat list to simplify processing
 - [ ] more performant getTreeByFolder
+- [ ] check barrel files handling for default import
 
 ## Tech Debt
 
