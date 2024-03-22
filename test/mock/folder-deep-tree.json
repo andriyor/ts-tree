@@ -125,6 +125,15 @@
             "usedInTypeAndCode"
           ],
           "children": []
+        },
+        {
+          "path": "test/test-project/multiExport.ts",
+          "name": "multiExport.ts",
+          "usedExports": [
+            "something",
+            "something2"
+          ],
+          "children": []
         }
       ]
     },

@@ -80,6 +80,16 @@
           "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
           "name": "usedInTypeAndCode.ts",
           "children": []
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+          "name": "multiExport.ts",
+          "children": []
+        },
+        {
+          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+          "name": "multiExport.ts",
+          "children": []
         }
       ]
     },

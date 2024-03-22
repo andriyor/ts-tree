@@ -10,6 +10,8 @@ import { useModuleOutsideDir } from './nested/use-module-outside-dir';
 import { TestProject } from './typeWithImport';
 import { TestProjectCode } from './typeWithImportCode';
 import { usedInTypeAndCode } from './usedInTypeAndCode';
+import { something } from './multiExport';
+import { something2 } from './multiExport';
 
 console.log('main');
 console.log(deep);
@@ -42,3 +44,5 @@ const testProjectCode: TestProjectCode = {
 console.log(testProjectCode);
 
 console.log(usedInTypeAndCode);
+console.log(something);
+console.log(something2);

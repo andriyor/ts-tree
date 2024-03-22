@@ -36,7 +36,8 @@ console.dir(tree, { depth: null });
 - [ ] pass meta info about files to folder tree
 - [x] arg parser for file tree
 - [x] include used export by parent
-- [ ] check imports from same file on different lines
+- [x] check named imports from same file on different lines for file tree
+- [ ] check named imports from same file on different lines for folder tree
 - [x] handle default import for file tree
 - [x] handle default import for folder tree
 - [x] build package

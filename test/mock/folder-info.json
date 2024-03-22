@@ -29,7 +29,9 @@
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts"
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts"
     ]
   },
   {
@@ -38,6 +40,11 @@
     "imports": [
       "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts"
     ]
+  },
+  {
+    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+    "name": "multiExport.ts",
+    "imports": []
   },
   {
     "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",

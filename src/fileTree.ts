@@ -95,7 +95,13 @@ const buildFileTree = (
           flatTree,
           additionalInfo,
         ).fileTree;
-        fileTree.children.push(childFileTree);
+        // TODO: optimize this?
+        const sameIndex = fileTree.children.findIndex(child => child.path === childFileTree.path);
+        if (sameIndex !== -1) {
+          fileTree.children[sameIndex].usedExports.push(...childFileTree.usedExports)
+        } else {
+          fileTree.children.push(childFileTree);
+        }
       });
     }
   });
