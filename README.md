@@ -25,8 +25,8 @@ console.dir(tree, { depth: null });
 | ------------------------------ | ----------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | ts support                     | ✅ TypeScript (via typescript)                  | ✅ es-module-lexer                                              | ✅                                                                         |
 | ts alias support               | ✅                                              | ✅                                                              | ❌ [issue](https://github.com/dependents/node-dependency-tree/issues/135)  |
-| not ts project support         | ❌                                              | ✅                                                              | ✅                                                                         |
 | jsx support                    | ✅                                              | ❌ [issue](https://github.com/thepassle/module-graph/issues/11) | ✅                                                                         |
+| not ts project support         | ❌                                              | ✅                                                              | ✅                                                                         |
 | circular dependencies handling | ❌ use [dpdm](https://github.com/acrazing/dpdm) | ✅                                                              |                                                                            |
 
 ## TODO
