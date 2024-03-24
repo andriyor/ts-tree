@@ -21,7 +21,7 @@ console.dir(tree, { depth: null });
 
 ## Comparison table
 
-| Letter                         | ts-tree                                         | [module-graph](https://github.com/thepassle/module-graph)       | [node-dependency-tree](https://github.com/dependents/node-dependency-tree) |
+| Feature/Name                   | ts-tree                                         | [module-graph](https://github.com/thepassle/module-graph)       | [node-dependency-tree](https://github.com/dependents/node-dependency-tree) |
 | ------------------------------ | ----------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | ts support                     | ✅ TypeScript (via typescript)                  | ✅ es-module-lexer                                              | ✅                                                                         |
 | ts alias support               | ✅                                              | ✅                                                              | ❌ [issue](https://github.com/dependents/node-dependency-tree/issues/135)  |
