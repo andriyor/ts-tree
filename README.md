@@ -1,6 +1,10 @@
 # ts-tree
 
-## Install 
+Creates a module tree based on a given entrypoint.
+
+Builds on top of [ts-morph](https://github.com/dsherret/ts-morph)
+
+## Install
 
 ```shell
 npm i @andriyorehov/ts-graph
@@ -15,8 +19,15 @@ const tree = getTreeByFile('filePath.ts');
 console.dir(tree, { depth: null });
 ```
 
-## How it works
+## Comparison table
 
+| Letter                         | ts-tree                                         | [module-graph](https://github.com/thepassle/module-graph)       | [node-dependency-tree](https://github.com/dependents/node-dependency-tree) |
+| ------------------------------ | ----------------------------------------------- | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| ts support                     | ✅ TypeScript (via typescript)                  | ✅ es-module-lexer                                              | ✅                                                                         |
+| ts alias support               | ✅                                              | ✅                                                              | ❌ [issue](https://github.com/dependents/node-dependency-tree/issues/135)  |
+| not ts project support         | ❌                                              | ✅                                                              | ✅                                                                         |
+| jsx support                    | ✅                                              | ❌ [issue](https://github.com/thepassle/module-graph/issues/11) | ✅                                                                         |
+| circular dependencies handling | ❌ use [dpdm](https://github.com/acrazing/dpdm) | ✅                                                              |                                                                            |
 
 ## TODO
 
@@ -47,21 +58,13 @@ console.dir(tree, { depth: null });
 - [x] return flat list to simplify processing
 - [ ] more performant getTreeByFolder
 - [ ] check barrel files handling for default import
+- [ ] circular dependencies handling?
 
 ## Tech Debt
 
-- [ ] try https://github.com/thepassle/module-graph
+- [x] try https://github.com/thepassle/module-graph
 - [ ] add test for id uniqueness
-- [ ] reuse code between file and folder tree builder
+- [x] reuse code between file and folder tree builder
 - [ ] cache file tree builer
 - [ ] upgrade `find-up` to latest version with ESM
-- [ ] try https://github.com/sindresorhus/find-up-simple
 - [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple)
-
-## Alternative
-
-[node-dependency-tree](https://github.com/dependents/node-dependency-tree) - used by [madge](https://github.com/pahen/madge) doesn't support ts alias [path mapping](https://github.com/dependents/node-dependency-tree/issues/135)
-
-[dependency-tree](https://github.com/canva-public/dependency-tree) - archived
-
-[module-graph](https://github.com/thepassle/module-graph) - just recently released and it looks like best solution

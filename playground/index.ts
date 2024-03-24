@@ -1,10 +1,24 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getTreeByFile } from '../src/fileTree';
-import { getTreeByFolder } from '../src/folderTree';
+import { getProjectTreeByFolder, getTreeByFolder } from '../src/folderTree';
 
-console.dir(getTreeByFolder('test/test-project/**/*.ts'), { depth: null });
+// console.dir(getTreeByFolder('test/test-project/**/*.ts'), { depth: null });
 // console.log(getTreeByFolder('/Users/aoriekhov/git/work/poynt/mercury-clean/src/pages/settings/**/*.{tsx,ts,js}'));
+// console.dir(getTreeByFile('/Users/aoriekhov/git/work/poynt/mercury-clean/src/pages/settings/index.page.tsx'), {depth: null});
+// console.dir(getTreeByFile('/Users/aoriekhov/git/work/poynt/mercury-clean/src/containers/bank/form/form.container.tsx'), {depth: null});
+// console.dir(getTreeByFile('src/containers/settings/bank-account/bank-account.container.tsx'), {depth: null});
+// console.dir(getTreeByFile('src/containers/bank/form/form.container.tsx'), {depth: null});
+// console.dir(getTreeByFolder('src/pages/settings/**/!(*.skeleton|*.test).{tsx,ts,js}'), {depth: null});
+// console.dir(getProjectTreeByFolder('src/**/!(*.skeleton|*.test).{tsx,ts,js}'))
+// console.dir(getProjectTreeByFolder('src/pages/**/!(*.skeleton|*.test).{tsx,ts,js}'))
+// console.dir(getProjectTreeByFolder('src/pages/settings/**/!(*.skeleton|*.test).{tsx,ts,js}'))
+
+const tree = getTreeByFolder('src/pages/**/!(*.skeleton|*.test).{tsx,ts,js}')
+fs.writeFileSync('tree.json', JSON.stringify(tree, null, 2));
+// const tree =  getTreeByFile('src/pages/invoices/index.page.tsx')
+// console.dir(tree, {depth: null});
+// fs.writeFileSync('in-person-tree.json', JSON.stringify(tree, null, 2));
 
 // const info = getFilesInfo('test/test-project/**/*.ts');
 // console.log(info);
