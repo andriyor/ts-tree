@@ -64,7 +64,7 @@ console.dir(tree, { depth: null });
 
 - [x] try https://github.com/thepassle/module-graph
 - [x] reuse code between file and folder tree builder
-- [ ] cache file tree builer
+- [x] cache file tree builder? (don't need since id need to be unique for each node)
 - [ ] fix eslint
 - [ ] add test for folder tree id uniqueness
 - [ ] upgrade `find-up` to latest version with ESM
