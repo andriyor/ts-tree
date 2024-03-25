@@ -63,8 +63,9 @@ console.dir(tree, { depth: null });
 ## Tech Debt
 
 - [x] try https://github.com/thepassle/module-graph
-- [ ] add test for id uniqueness
 - [x] reuse code between file and folder tree builder
 - [ ] cache file tree builer
+- [ ] fix eslint
+- [ ] add test for folder tree id uniqueness
 - [ ] upgrade `find-up` to latest version with ESM
-- [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple)
+- [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple) (ESM)

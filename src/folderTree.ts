@@ -33,7 +33,6 @@ export const buildTree = (data: FileInfo[]) => {
     item.imports.forEach((importPath) => {
       const importNode = tree[importPath];
       if (node && importNode) {
-        const name = `${node.path}/${importNode.path}`;
         node.children.push(importNode);
       }
     });
@@ -71,7 +70,6 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
     // handle default import
     // https://github.com/dsherret/ts-morph/issues/1507
     if (importClause && namedBindings === undefined) {
-      const importName = importClause.getText();
       const importPath = importDeclaration.getModuleSpecifier().getText();
       const unquotedPath = trimQuotes(importPath);
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());

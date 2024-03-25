@@ -26,7 +26,7 @@ export const getResolvedFileName = (moduleName: string, containingFile: string, 
       ['.js', '.ts', '.jsx', '.tsx'].includes(resolvedModuleName.resolvedModule.extension)
     ) {
       if (resolvedModuleName.resolvedModule.resolvedFileName.includes(process.cwd())) {
-        return resolvedModuleName.resolvedModule?.resolvedFileName;
+        return resolvedModuleName.resolvedModule.resolvedFileName;
       } else {
         // handle alias
         return path.join(process.cwd(), resolvedModuleName.resolvedModule.resolvedFileName);

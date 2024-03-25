@@ -7,7 +7,8 @@
     "test": "vitest run",
     "build": "rm -rf build;tsc -p tsconfig.build.json",
     "bench": "tsx test/bench.ts > test/bench-result.json && prettier --write test/bench-result.json",
-    "prepublishOnly": "npm run test && npm run build"
+    "prepublishOnly": "npm run test && npm run build",
+    "lint": "eslint src"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,10 @@
     "@thepassle/module-graph": "^0.7.5",
     "@tsconfig/strictest": "^2.0.4",
     "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "camelcase": "^8.0.0",
+    "eslint": "^8.57.0",
     "mitata": "^0.1.11",
     "prettier": "^3.2.5",
     "string-ts": "^2.1.0",
