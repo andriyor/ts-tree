@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import { describe, it, expect } from 'vitest';
 import { remove } from 'wild-wild-path';
 
@@ -52,10 +54,11 @@ describe('ts-tree', () => {
 
     it('getTreeByFile with meta', () => {
       const meta = {
-        '/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts': {
+        [path.join(process.cwd(), 'test/test-project/nested.ts')]: {
           total: 20,
         },
       };
+      console.log('meta', meta)
 
       const tree = getTreeByFile('test/test-project/index.ts', meta);
       const withoutIds = remove(tree, '**.id');

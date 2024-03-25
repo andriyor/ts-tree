@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 import { remove } from 'wild-wild-path';
 
@@ -17,7 +18,7 @@ const withoutParentIds = remove(withoutIds, '**.parentId');
 fs.writeFileSync('./test/mock/file-tree.json', JSON.stringify(withoutParentIds, null, 2));
 
 const meta = {
-  '/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts': {
+  [path.join(process.cwd(), 'test/test-project/nested.ts')]: {
     total: 20,
   },
 };
