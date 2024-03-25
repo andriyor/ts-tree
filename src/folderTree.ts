@@ -1,3 +1,4 @@
+import path from 'node:path';
 import crypto from 'node:crypto';
 
 import findUp from 'find-up';
@@ -55,9 +56,10 @@ export const buildTree = (data: FileInfo[]) => {
 
 const getImports = (sourceFile: SourceFile, project: Project) => {
   const currentFilePath = sourceFile.getFilePath();
+  const relativeFilePath = path.relative(process.cwd(), currentFilePath);
   const baseName = sourceFile.getBaseName();
   const fileInfo: FileInfo = {
-    path: currentFilePath,
+    path: relativeFilePath,
     name: baseName,
     imports: [],
   };
@@ -74,7 +76,8 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
       const unquotedPath = trimQuotes(importPath);
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
       if (fileImport) {
-        fileInfo.imports.push(fileImport);
+        const relativeFilePath = path.relative(process.cwd(), fileImport);
+        fileInfo.imports.push(relativeFilePath);
       }
     }
 
@@ -83,13 +86,14 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
       namedBindings.getElements().forEach((named) => {
         const nodes = named.getNameNode().getDefinitionNodes();
         nodes.forEach((node) => {
-          const path = node.getSourceFile().getFilePath();
+          const importPath = node.getSourceFile().getFilePath();
+          const relativeFilePath = path.relative(process.cwd(), importPath);
           if (isValidNode(node)) {
-            if (!path.includes('node_modules')) {
-              paths.add(path);
+            if (!importPath.includes('node_modules')) {
+              paths.add(relativeFilePath);
             }
           } else {
-            pathsToExclude.add(path);
+            pathsToExclude.add(relativeFilePath);
           }
         });
       });

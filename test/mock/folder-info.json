@@ -1,78 +1,78 @@
 [
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
+    "path": "test/test-project/deep.ts",
     "name": "deep.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts"
+      "test/test-project/nested.ts",
+      "test/test-project/nested2.ts"
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
+    "path": "test/test-project/deep2.ts",
     "name": "deep2.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts"
+      "test/test-project/nested.ts",
+      "test/test-project/nested2.ts"
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
+    "path": "test/test-project/default.ts",
     "name": "default.ts",
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+    "path": "test/test-project/index.ts",
     "name": "index.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts"
+      "test/test-project/deep.ts",
+      "test/test-project/deep2.ts",
+      "test/test-project/helper/helper.ts",
+      "test/test-project/default.ts",
+      "test/test-project/nested/use-module-outside-dir.ts",
+      "test/test-project/usedInTypeAndCode.ts",
+      "test/test-project/multiExport.ts",
+      "test/test-project/multiExport.ts"
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index2.ts",
+    "path": "test/test-project/index2.ts",
     "name": "index2.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts"
+      "test/test-project/nested.ts"
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+    "path": "test/test-project/multiExport.ts",
     "name": "multiExport.ts",
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+    "path": "test/test-project/nested.ts",
     "name": "nested.ts",
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+    "path": "test/test-project/nested2.ts",
     "name": "nested2.ts",
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
+    "path": "test/test-project/usedInTypeAndCode.ts",
     "name": "usedInTypeAndCode.ts",
     "imports": []
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+    "path": "test/test-project/helper/helper.ts",
     "name": "helper.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts"
+      "test/test-project/deep.ts"
     ]
   },
   {
-    "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
+    "path": "test/test-project/nested/use-module-outside-dir.ts",
     "name": "use-module-outside-dir.ts",
     "imports": [
-      "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts"
+      "test/test-project/nested.ts"
     ]
   }
 ]

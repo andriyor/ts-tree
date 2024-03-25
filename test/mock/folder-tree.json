@@ -3,56 +3,56 @@
   "name": "Root",
   "children": [
     {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index.ts",
+      "path": "test/test-project/index.ts",
       "name": "index.ts",
       "children": [
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
+          "path": "test/test-project/deep.ts",
           "name": "deep.ts",
           "children": [
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "path": "test/test-project/nested.ts",
               "name": "nested.ts",
               "children": []
             },
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "path": "test/test-project/nested2.ts",
               "name": "nested2.ts",
               "children": []
             }
           ]
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep2.ts",
+          "path": "test/test-project/deep2.ts",
           "name": "deep2.ts",
           "children": [
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "path": "test/test-project/nested.ts",
               "name": "nested.ts",
               "children": []
             },
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+              "path": "test/test-project/nested2.ts",
               "name": "nested2.ts",
               "children": []
             }
           ]
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/helper/helper.ts",
+          "path": "test/test-project/helper/helper.ts",
           "name": "helper.ts",
           "children": [
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/deep.ts",
+              "path": "test/test-project/deep.ts",
               "name": "deep.ts",
               "children": [
                 {
-                  "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+                  "path": "test/test-project/nested.ts",
                   "name": "nested.ts",
                   "children": []
                 },
                 {
-                  "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested2.ts",
+                  "path": "test/test-project/nested2.ts",
                   "name": "nested2.ts",
                   "children": []
                 }
@@ -61,44 +61,44 @@
           ]
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/default.ts",
+          "path": "test/test-project/default.ts",
           "name": "default.ts",
           "children": []
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested/use-module-outside-dir.ts",
+          "path": "test/test-project/nested/use-module-outside-dir.ts",
           "name": "use-module-outside-dir.ts",
           "children": [
             {
-              "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+              "path": "test/test-project/nested.ts",
               "name": "nested.ts",
               "children": []
             }
           ]
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/usedInTypeAndCode.ts",
+          "path": "test/test-project/usedInTypeAndCode.ts",
           "name": "usedInTypeAndCode.ts",
           "children": []
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+          "path": "test/test-project/multiExport.ts",
           "name": "multiExport.ts",
           "children": []
         },
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/multiExport.ts",
+          "path": "test/test-project/multiExport.ts",
           "name": "multiExport.ts",
           "children": []
         }
       ]
     },
     {
-      "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/index2.ts",
+      "path": "test/test-project/index2.ts",
       "name": "index2.ts",
       "children": [
         {
-          "path": "/Users/aoriekhov/git/personal/ts-tree/test/test-project/nested.ts",
+          "path": "test/test-project/nested.ts",
           "name": "nested.ts",
           "children": []
         }

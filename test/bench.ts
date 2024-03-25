@@ -11,7 +11,7 @@ bench('getTreeByFolder', () => {
   getTreeByFolder('test/test-project/**/*.ts');
 });
 
-(async () => {
+void (async () => {
   await run({
     silent: false, // enable/disable stdout output
     avg: true, // enable/disable avg column (default: true)
