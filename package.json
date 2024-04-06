@@ -15,21 +15,21 @@
   "license": "ISC",
   "dependencies": {
     "find-up": "^5.0.0",
-    "ts-morph": "^21.0.1"
+    "ts-morph": "^22.0.0"
   },
   "devDependencies": {
     "@canva/dependency-tree": "^3.3.3",
     "@thepassle/module-graph": "^0.7.5",
-    "@tsconfig/strictest": "^2.0.4",
-    "@types/node": "^20.11.30",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@tsconfig/strictest": "^2.0.5",
+    "@types/node": "^20.12.5",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
     "camelcase": "^8.0.0",
     "eslint": "^8.57.0",
     "mitata": "^0.1.11",
     "prettier": "^3.2.5",
     "string-ts": "^2.1.0",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.4",
     "vitest": "^1.4.0",
     "wild-wild-path": "^5.0.0"
   },
