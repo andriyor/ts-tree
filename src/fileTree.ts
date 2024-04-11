@@ -111,6 +111,8 @@ const buildFileTree = (
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
   const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: filePath });
   const project = new Project({
+    skipAddingFilesFromTsConfig: true,
+    skipFileDependencyResolution: true,
     tsConfigFilePath,
   });
 

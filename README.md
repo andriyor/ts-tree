@@ -56,15 +56,16 @@ console.dir(tree, { depth: null });
 - [x] publish to npm
 - [x] handle files outside of folder tree
 - [x] return flat list to simplify processing
-- [ ] more performant getTreeByFolder
 - [ ] check barrel files handling for default import
 - [ ] circular dependencies handling?
+- [ ] how to get file deps with skipAddingFilesFromTsConfig: false, skipFileDependencyResolution: false,
 
 ## Tech Debt
 
 - [x] try https://github.com/thepassle/module-graph
 - [x] reuse code between file and folder tree builder
 - [x] cache file tree builder? (don't need since id need to be unique for each node)
+- [x] improve performance
 - [ ] fix eslint
 - [ ] add test for folder tree id uniqueness
 - [ ] upgrade `find-up` to latest version with ESM

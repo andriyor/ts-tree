@@ -1,7 +1,8 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { getTreeByFile } from '../src/fileTree';
-import { getProjectTreeByFolder, getTreeByFolder } from '../src/folderTree';
+// import fs from 'node:fs';
+// import path from 'node:path';
+// import { getTreeByFile } from '../src/fileTree';
+// import { getProjectTreeByFolder, getTreeByFolder } from '../src/folderTree';
+const graph = require('../build/index');
 
 // console.dir(getTreeByFolder('test/test-project/**/*.ts'), { depth: null });
 // console.log(getTreeByFolder('/Users/aoriekhov/git/work/poynt/mercury-clean/src/pages/settings/**/*.{tsx,ts,js}'));
@@ -14,8 +15,11 @@ import { getProjectTreeByFolder, getTreeByFolder } from '../src/folderTree';
 // console.dir(getProjectTreeByFolder('src/pages/**/!(*.skeleton|*.test).{tsx,ts,js}'))
 // console.dir(getProjectTreeByFolder('src/pages/settings/**/!(*.skeleton|*.test).{tsx,ts,js}'))
 
-const tree = getTreeByFolder('src/pages/**/!(*.skeleton|*.test).{tsx,ts,js}')
-fs.writeFileSync('tree.json', JSON.stringify(tree, null, 2));
+// const tree = graph.getTreeByFolder('src/pages/**/!(*.skeleton|*.test).{tsx,ts,js}')
+// console.log(tree.flatTree);
+
+
+// fs.writeFileSync('tree.json', JSON.stringify(tree, null, 2));
 // const tree =  getTreeByFile('src/pages/invoices/index.page.tsx')
 // console.dir(tree, {depth: null});
 // fs.writeFileSync('in-person-tree.json', JSON.stringify(tree, null, 2));
@@ -27,8 +31,9 @@ fs.writeFileSync('tree.json', JSON.stringify(tree, null, 2));
 // fs.writeFileSync('./test/mock/info.json', JSON.stringify(info, null, 2));
 // fs.writeFileSync('./test/mock/tree.json', JSON.stringify(tree1, null, 2));
 
-// const filesInfo = getTreeByFile('test/test-project/index.ts');
-// console.dir(filesInfo, { depth: null });
+const filesInfo = graph.getTreeByFile('test/test-project/index.ts');
+console.dir(filesInfo, { depth: null });
+console.log(Object.keys(filesInfo.fileTree).length);
 //
 // console.log(path.relative('/foo/bar', '/foo/bar/baz.json'));
 // console.log(
