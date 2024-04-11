@@ -56,6 +56,7 @@ console.dir(tree, { depth: null });
 - [x] publish to npm
 - [x] handle files outside of folder tree
 - [x] return flat list to simplify processing
+- [ ] create separate method with flat structure and use getReferencingSourceFiles, include types, barrel files, styles
 - [ ] check barrel files handling for default import
 - [ ] circular dependencies handling?
 - [ ] how to get file deps with skipAddingFilesFromTsConfig: false, skipFileDependencyResolution: false,
@@ -66,6 +67,7 @@ console.dir(tree, { depth: null });
 - [x] reuse code between file and folder tree builder
 - [x] cache file tree builder? (don't need since id need to be unique for each node)
 - [x] improve performance
+- [x] use getReferencingSourceFiles instead own resolution implementation? in such case I will not able to ignore types/interface/enum/`as const` and barrel files
 - [ ] fix eslint
 - [ ] add test for folder tree id uniqueness
 - [ ] upgrade `find-up` to latest version with ESM
