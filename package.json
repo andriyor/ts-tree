@@ -21,16 +21,16 @@
     "@canva/dependency-tree": "^3.3.3",
     "@thepassle/module-graph": "^0.7.5",
     "@tsconfig/strictest": "^2.0.5",
-    "@types/node": "^20.12.5",
-    "@typescript-eslint/eslint-plugin": "^7.5.0",
-    "@typescript-eslint/parser": "^7.5.0",
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
     "camelcase": "^8.0.0",
     "eslint": "^8.57.0",
     "mitata": "^0.1.11",
     "prettier": "^3.2.5",
     "string-ts": "^2.1.0",
-    "typescript": "^5.4.4",
-    "vitest": "^1.4.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0",
     "wild-wild-path": "^5.0.0"
   },
   "publishConfig": {
@@ -40,5 +40,6 @@
   "repository": "github:andriyor/ts-tree",
   "files": [
     "/build"
-  ]
+  ],
+  "packageManager": "pnpm@8.15.6+sha256.01c01eeb990e379b31ef19c03e9d06a14afa5250b82e81303f88721c99ff2e6f"
 }
