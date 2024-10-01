@@ -20,7 +20,8 @@
             "usedExports": [
               "nested"
             ],
-            "children": []
+            "children": [],
+            "depth": 2
           },
           {
             "path": "test/test-project/nested2.ts",
@@ -28,9 +29,11 @@
             "usedExports": [
               "nested2"
             ],
-            "children": []
+            "children": [],
+            "depth": 2
           }
-        ]
+        ],
+        "depth": 1
       },
       {
         "path": "test/test-project/deep2.ts",
@@ -48,7 +51,8 @@
             "usedExports": [
               "nested"
             ],
-            "children": []
+            "children": [],
+            "depth": 2
           },
           {
             "path": "test/test-project/nested2.ts",
@@ -57,9 +61,11 @@
               "nested2",
               "nested3"
             ],
-            "children": []
+            "children": [],
+            "depth": 2
           }
-        ]
+        ],
+        "depth": 1
       },
       {
         "path": "test/test-project/helper/helper.ts",
@@ -84,7 +90,8 @@
                 "usedExports": [
                   "nested"
                 ],
-                "children": []
+                "children": [],
+                "depth": 3
               },
               {
                 "path": "test/test-project/nested2.ts",
@@ -92,11 +99,14 @@
                 "usedExports": [
                   "nested2"
                 ],
-                "children": []
+                "children": [],
+                "depth": 3
               }
-            ]
+            ],
+            "depth": 2
           }
-        ]
+        ],
+        "depth": 1
       },
       {
         "path": "test/test-project/default.ts",
@@ -104,7 +114,8 @@
         "usedExports": [
           "defaultSum"
         ],
-        "children": []
+        "children": [],
+        "depth": 1
       },
       {
         "path": "test/test-project/nested/use-module-outside-dir.ts",
@@ -122,9 +133,11 @@
             "usedExports": [
               "nested"
             ],
-            "children": []
+            "children": [],
+            "depth": 2
           }
-        ]
+        ],
+        "depth": 1
       },
       {
         "path": "test/test-project/usedInTypeAndCode.ts",
@@ -132,7 +145,8 @@
         "usedExports": [
           "usedInTypeAndCode"
         ],
-        "children": []
+        "children": [],
+        "depth": 1
       },
       {
         "path": "test/test-project/multiExport.ts",
@@ -141,16 +155,19 @@
           "something",
           "something2"
         ],
-        "children": []
+        "children": [],
+        "depth": 1
       }
-    ]
+    ],
+    "depth": 0
   },
   "flatTree": {
     "test/test-project/index.ts": {
       "path": "test/test-project/index.ts",
       "name": "index.ts",
       "usedExports": [],
-      "children": []
+      "children": [],
+      "depth": 0
     },
     "test/test-project/deep.ts": {
       "path": "test/test-project/deep.ts",
@@ -158,7 +175,8 @@
       "usedExports": [
         "deep"
       ],
-      "children": []
+      "children": [],
+      "depth": 2
     },
     "test/test-project/nested.ts": {
       "path": "test/test-project/nested.ts",
@@ -169,7 +187,8 @@
       "usedExports": [
         "nested"
       ],
-      "children": []
+      "children": [],
+      "depth": 2
     },
     "test/test-project/nested2.ts": {
       "path": "test/test-project/nested2.ts",
@@ -177,7 +196,8 @@
       "usedExports": [
         "nested2"
       ],
-      "children": []
+      "children": [],
+      "depth": 3
     },
     "test/test-project/deep2.ts": {
       "path": "test/test-project/deep2.ts",
@@ -185,7 +205,8 @@
       "usedExports": [
         "deep2"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     },
     "test/test-project/helper/helper.ts": {
       "path": "test/test-project/helper/helper.ts",
@@ -193,7 +214,8 @@
       "usedExports": [
         "helper"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     },
     "test/test-project/default.ts": {
       "path": "test/test-project/default.ts",
@@ -201,7 +223,8 @@
       "usedExports": [
         "defaultSum"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     },
     "test/test-project/nested/use-module-outside-dir.ts": {
       "path": "test/test-project/nested/use-module-outside-dir.ts",
@@ -209,7 +232,8 @@
       "usedExports": [
         "useModuleOutsideDir"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     },
     "test/test-project/usedInTypeAndCode.ts": {
       "path": "test/test-project/usedInTypeAndCode.ts",
@@ -217,7 +241,8 @@
       "usedExports": [
         "usedInTypeAndCode"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     },
     "test/test-project/multiExport.ts": {
       "path": "test/test-project/multiExport.ts",
@@ -225,7 +250,8 @@
       "usedExports": [
         "something2"
       ],
-      "children": []
+      "children": [],
+      "depth": 1
     }
   }
 }

@@ -14,6 +14,7 @@ export type FileTree = {
   meta?: unknown;
   usedExports: string[];
   children: FileTree[];
+  depth: number;
 };
 
 const buildFileTree = (
@@ -23,7 +24,9 @@ const buildFileTree = (
   usedExports: string[] = [],
   flatTree: Record<string, FileTree> = {},
   additionalInfo: Record<string, unknown> = {},
+  depth = 0,
 ) => {
+  console.log('filePath', depth, filePath);
   const sourceFile = project.addSourceFileAtPath(filePath);
 
   const currentFilePath = sourceFile.getFilePath();
@@ -40,16 +43,19 @@ const buildFileTree = (
     meta: additionalFileInfo,
     usedExports: usedExports,
     children: [],
+    depth: depth,
   };
   flatTree[fileTree.path] = { ...fileTree, children: [] };
 
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
+    console.log('importDeclaration', importDeclaration.getText());
     const importClause = importDeclaration.getImportClause();
     const namedBindings = importClause?.getNamedBindings();
 
     // handle default import
     // https://github.com/dsherret/ts-morph/issues/1507
     if (importClause && namedBindings === undefined) {
+      console.log('andle default import');
       const importName = importClause.getText();
       const importPath = importDeclaration.getModuleSpecifier().getText();
       const unquotedPath = trimQuotes(importPath);
@@ -62,6 +68,7 @@ const buildFileTree = (
           [importName],
           flatTree,
           additionalInfo,
+          depth + 1,
         ).fileTree;
         fileTree.children.push(childFileTree);
       }
@@ -72,10 +79,13 @@ const buildFileTree = (
       namedBindings.getElements().forEach((named) => {
         const nameNode = named.getNameNode();
         const importedName = nameNode.getText();
+        console.log('importedName', importedName);
 
         const definitionNodes = nameNode.getDefinitionNodes();
+        // console.log('definitionNodes', definitionNodes);
         definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
+          console.log('path', path);
           if (!path.includes('node_modules') && isValidNode(node)) {
             if (paths[path]) {
               paths[path].push(importedName);
@@ -94,6 +104,7 @@ const buildFileTree = (
           importedNames,
           flatTree,
           additionalInfo,
+          depth + 1,
         ).fileTree;
         // TODO: optimize this?
         const sameIndex = fileTree.children.findIndex(child => child.path === childFileTree.path);
@@ -111,7 +122,7 @@ const buildFileTree = (
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
   const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: filePath });
   const project = new Project({
-    skipAddingFilesFromTsConfig: true,
+    skipAddingFilesFromTsConfig: false, // true can cause recursion
     skipFileDependencyResolution: true,
     tsConfigFilePath,
   });

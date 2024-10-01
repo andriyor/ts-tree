@@ -12,12 +12,23 @@ npm i @andriyorehov/ts-graph
 
 ## Usage
 
+Per file
+
 ```ts
 import { getTreeByFile } from '@andriyorehov/ts-graph';
 
 const tree = getTreeByFile('filePath.ts');
 console.dir(tree, { depth: null });
 ```
+
+Per folder
+```ts
+import { getTreeByFolder } from '@andriyorehov/ts-graph';
+
+const tree = getTreeByFolder('filePath.ts');
+console.dir(tree, { depth: null });
+```
+
 
 ## Comparison table
 
@@ -60,6 +71,9 @@ console.dir(tree, { depth: null });
 - [ ] check barrel files handling for default import
 - [ ] circular dependencies handling?
 - [ ] how to get file deps with skipAddingFilesFromTsConfig: false, skipFileDependencyResolution: false,
+- [x] depth number
+- [x] flat tree for folder
+- [ ] parent in flat tree
 
 ## Tech Debt
 
@@ -72,3 +86,17 @@ console.dir(tree, { depth: null });
 - [ ] add test for folder tree id uniqueness
 - [ ] upgrade `find-up` to latest version with ESM
 - [ ] try [find-up-simple](https://github.com/sindresorhus/find-up-simple) (ESM)
+
+## Development
+
+### Run tests
+
+```shell
+npm run test
+```
+
+### Prepare mocks
+
+```shell
+tsx test/prepare-mocks.ts
+```

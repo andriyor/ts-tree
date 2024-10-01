@@ -155,7 +155,7 @@ export const getTreeByFolder = (folderPath: string) => {
   const info = getFilesInfo(folderPath);
   const tree = buildTree(info);
 
-  const fileTree: FileTree = {
+  const rootTree: FileTree = {
     id: crypto.randomUUID(),
     path: '',
     name: 'Root',
@@ -163,11 +163,18 @@ export const getTreeByFolder = (folderPath: string) => {
     meta: undefined,
     usedExports: [],
     children: [],
+    depth: 0
   };
+
+  let flatTree = {};
 
   for (const rootChildren of tree.children) {
     const tree = getTreeByFile(rootChildren.path);
-    fileTree.children.push(tree.fileTree);
+    flatTree = {...flatTree, ...tree.flatTree}
+    rootTree.children.push(tree.fileTree);
   }
-  return fileTree;
+  return {
+    ...rootTree,
+    flatTree
+  };
 };
