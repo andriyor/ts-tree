@@ -26,7 +26,6 @@ const buildFileTree = (
   additionalInfo: Record<string, unknown> = {},
   depth = 0,
 ) => {
-  console.log('filePath', depth, filePath);
   const sourceFile = project.addSourceFileAtPath(filePath);
 
   const currentFilePath = sourceFile.getFilePath();
@@ -48,14 +47,12 @@ const buildFileTree = (
   flatTree[fileTree.path] = { ...fileTree, children: [] };
 
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
-    console.log('importDeclaration', importDeclaration.getText());
     const importClause = importDeclaration.getImportClause();
     const namedBindings = importClause?.getNamedBindings();
 
     // handle default import
     // https://github.com/dsherret/ts-morph/issues/1507
     if (importClause && namedBindings === undefined) {
-      console.log('andle default import');
       const importName = importClause.getText();
       const importPath = importDeclaration.getModuleSpecifier().getText();
       const unquotedPath = trimQuotes(importPath);
@@ -79,13 +76,9 @@ const buildFileTree = (
       namedBindings.getElements().forEach((named) => {
         const nameNode = named.getNameNode();
         const importedName = nameNode.getText();
-        console.log('importedName', importedName);
-
         const definitionNodes = nameNode.getDefinitionNodes();
-        // console.log('definitionNodes', definitionNodes);
         definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
-          console.log('path', path);
           if (!path.includes('node_modules') && isValidNode(node)) {
             if (paths[path]) {
               paths[path].push(importedName);
