@@ -100,3 +100,9 @@ npm run test
 ```shell
 tsx test/prepare-mocks.ts
 ```
+
+### Benchmark
+
+```shell
+npmr run bench
+```

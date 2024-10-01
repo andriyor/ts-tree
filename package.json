@@ -15,7 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "find-up": "^5.0.0",
-    "ts-morph": "^22.0.0"
+    "ts-morph": "^23.0.0"
   },
   "devDependencies": {
     "@canva/dependency-tree": "^3.3.3",
@@ -27,10 +27,10 @@
     "camelcase": "^8.0.0",
     "eslint": "^8.57.0",
     "mitata": "^0.1.11",
-    "prettier": "^3.2.5",
+    "prettier": "^3.3.3",
     "string-ts": "^2.1.0",
-    "typescript": "^5.4.5",
-    "vitest": "^1.5.0",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1",
     "wild-wild-path": "^5.0.0"
   },
   "publishConfig": {

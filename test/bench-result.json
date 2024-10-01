@@ -8,13 +8,16 @@
       "baseline": false,
       "async": false,
       "stats": {
-        "min": 97000125,
-        "max": 118080208,
-        "p50": 99135333,
-        "p75": 102759291,
-        "p99": 118080208,
-        "p999": 118080208,
-        "avg": 101525208.25
+        "kind": "fn",
+        "debug": "async function anonymous($fn,$now\n) {\n\n    let t = 0;\n    let samples = [];\n\n    while (true) {\n      if (samples.length >= 1000000000) break;\n      else if (t >= 640000000 && samples.length >= 2) break;\n\n      const t0 = $now();\n        $fn();\n\n      const t1 = $now();\n      const diff = t1 - t0;\n\n      t += diff;\n      samples.push(diff );\n    }\n\n    samples.sort((a, b) => a - b);\n    if (samples.length > 5) samples = samples.slice(1, -1);\n\n    return {\n      samples,\n      min: samples[0],\n      max: samples[samples.length - 1],\n      p50: samples[(.50 * samples.length) | 0],\n      p75: samples[(.75 * samples.length) | 0],\n      p99: samples[(.99 * samples.length) | 0],\n      p999: samples[(.999 * samples.length) | 0],\n      avg: samples.reduce((a, b) => a + b, 0) / samples.length,\n    };\n  \n}",
+        "samples": [422853375, 479030750],
+        "min": 422853375,
+        "max": 479030750,
+        "p50": 479030750,
+        "p75": 479030750,
+        "p99": 479030750,
+        "p999": 479030750,
+        "avg": 450942062.5
       }
     },
     {
@@ -25,16 +28,19 @@
       "baseline": false,
       "async": false,
       "stats": {
-        "min": 595500209,
-        "max": 657266167,
-        "p50": 631914875,
-        "p75": 656069833,
-        "p99": 657266167,
-        "p999": 657266167,
-        "avg": 629101073
+        "kind": "fn",
+        "debug": "async function anonymous($fn,$now\n) {\n\n    let t = 0;\n    let samples = [];\n\n    while (true) {\n      if (samples.length >= 1000000000) break;\n      else if (t >= 640000000 && samples.length >= 2) break;\n\n      const t0 = $now();\n        $fn();\n\n      const t1 = $now();\n      const diff = t1 - t0;\n\n      t += diff;\n      samples.push(diff );\n    }\n\n    samples.sort((a, b) => a - b);\n    if (samples.length > 5) samples = samples.slice(1, -1);\n\n    return {\n      samples,\n      min: samples[0],\n      max: samples[samples.length - 1],\n      p50: samples[(.50 * samples.length) | 0],\n      p75: samples[(.75 * samples.length) | 0],\n      p99: samples[(.99 * samples.length) | 0],\n      p999: samples[(.999 * samples.length) | 0],\n      avg: samples.reduce((a, b) => a + b, 0) / samples.length,\n    };\n  \n}",
+        "samples": [1209870333, 1260359333],
+        "min": 1209870333,
+        "max": 1260359333,
+        "p50": 1260359333,
+        "p75": 1260359333,
+        "p99": 1260359333,
+        "p999": 1260359333,
+        "avg": 1235114833
       }
     }
   ],
   "cpu": "Apple M1 Pro",
-  "runtime": "node v20.11.1 (arm64-darwin)"
+  "runtime": "node v20.12.2 (arm64-darwin)"
 }
