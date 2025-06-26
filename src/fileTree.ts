@@ -79,7 +79,7 @@ const buildFileTree = (
         const definitionNodes = nameNode.getDefinitionNodes();
         definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
-          if (!path.includes('node_modules') && isValidNode(node)) {
+          if (!path.includes('node_modules') && path !== filePath && isValidNode(node)) {
             if (paths[path]) {
               paths[path].push(importedName);
             } else {
