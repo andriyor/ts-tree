@@ -58,7 +58,6 @@ describe('ts-tree', () => {
           total: 20,
         },
       };
-      console.log('meta', meta)
 
       const tree = getTreeByFile('test/test-project/index.ts', meta);
       const withoutIds = remove(tree, '**.id');
