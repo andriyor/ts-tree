@@ -40,7 +40,5 @@ const withoutParentIdsTreeNested = remove(withoutIdsTreeNested, '**.parentId');
 fs.writeFileSync('./test/mock/nested-folder-deep-tree.json', JSON.stringify(withoutParentIdsTreeNested, null, 2));
 
 
-import superjson from 'superjson';
-
 const graph = getGraphByFile('test/test-project/index.ts');
-fs.writeFileSync('./test/mock/file-graph.json', superjson.stringify(graph));
+fs.writeFileSync('./test/mock/file-graph.json', JSON.stringify(graph, null, 2));

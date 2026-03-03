@@ -20,7 +20,7 @@ export type FileEdge = {
 };
 
 export type FileGraph = {
-  nodes: Map<string, FileNode>;
+  nodes: Record<string, FileNode>;
   edges: FileEdge[];
   rootId: string;
 };
@@ -39,8 +39,8 @@ const buildFileGraph = (
   const baseName = sourceFile.getBaseName();
 
   // Check if node already exists
-  if (graph.nodes.has(relativeFilePath)) {
-    return graph.nodes.get(relativeFilePath)!.id;
+  if (relativeFilePath in graph.nodes) {
+    return graph.nodes[relativeFilePath]!.id;
   }
 
   const additionalFileInfo = additionalInfo[currentFilePath] ?? undefined;
@@ -52,7 +52,7 @@ const buildFileGraph = (
     meta: additionalFileInfo,
   };
 
-  graph.nodes.set(relativeFilePath, fileNode);
+  graph.nodes[relativeFilePath] = fileNode;
 
   // Mark as visited before processing children to detect circular dependencies
   visited.add(relativeFilePath);
@@ -73,7 +73,7 @@ const buildFileGraph = (
 
         if (visited.has(importedRelativePath)) {
           // Circular dependency - use existing node
-          childNodeId = graph.nodes.get(importedRelativePath)!.id;
+          childNodeId = graph.nodes[importedRelativePath]!.id;
         } else {
           childNodeId = buildFileGraph(project, fileImport, graph, additionalInfo, visited);
         }
@@ -111,7 +111,7 @@ const buildFileGraph = (
 
         if (visited.has(importedRelativePath)) {
           // Circular dependency - use existing node
-          childNodeId = graph.nodes.get(importedRelativePath)!.id;
+          childNodeId = graph.nodes[importedRelativePath]!.id;
         } else {
           childNodeId = buildFileGraph(project, fileImport, graph, additionalInfo, visited);
         }
@@ -144,7 +144,7 @@ export const getGraphByFile = (filePath: string, additionalInfo: Record<string, 
   });
 
   const graph: FileGraph = {
-    nodes: new Map(),
+    nodes: {},
     edges: [],
     rootId: '',
   };
