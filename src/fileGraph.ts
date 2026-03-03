@@ -14,8 +14,8 @@ export type FileNode = {
 
 export type FileEdge = {
   id: string;
-  from: string;
-  to: string;
+  source: string;
+  target: string;
   usedExports: string[];
 };
 
@@ -86,8 +86,8 @@ const buildFileGraph = (
 
         graph.edges.push({
           id: `${fileNode.id}->${childNodeId}`,
-          from: fileNode.id,
-          to: childNodeId,
+          source: fileNode.id,
+          target: childNodeId,
           usedExports: [importName],
         });
       }
@@ -123,14 +123,14 @@ const buildFileGraph = (
         }
 
         // Check if edge already exists and merge usedExports
-        const existingEdge = graph.edges.find((edge) => edge.from === fileNode.id && edge.to === childNodeId);
+        const existingEdge = graph.edges.find((edge) => edge.source === fileNode.id && edge.target === childNodeId);
         if (existingEdge) {
           existingEdge.usedExports.push(...importedNames);
         } else {
           graph.edges.push({
             id: `${fileNode.id}->${childNodeId}`,
-            from: fileNode.id,
-            to: childNodeId,
+            source: fileNode.id,
+            target: childNodeId,
             usedExports: importedNames,
           });
         }

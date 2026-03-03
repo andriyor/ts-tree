@@ -54,40 +54,40 @@
   "edges": [
     {
       "id": "test/test-project/deep.ts->test/test-project/nested.ts",
-      "from": "test/test-project/deep.ts",
-      "to": "test/test-project/nested.ts",
+      "source": "test/test-project/deep.ts",
+      "target": "test/test-project/nested.ts",
       "usedExports": [
         "nested"
       ]
     },
     {
       "id": "test/test-project/deep.ts->test/test-project/nested2.ts",
-      "from": "test/test-project/deep.ts",
-      "to": "test/test-project/nested2.ts",
+      "source": "test/test-project/deep.ts",
+      "target": "test/test-project/nested2.ts",
       "usedExports": [
         "nested2"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/deep.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/deep.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/deep.ts",
       "usedExports": [
         "deep"
       ]
     },
     {
       "id": "test/test-project/deep2.ts->test/test-project/nested.ts",
-      "from": "test/test-project/deep2.ts",
-      "to": "test/test-project/nested.ts",
+      "source": "test/test-project/deep2.ts",
+      "target": "test/test-project/nested.ts",
       "usedExports": [
         "nested"
       ]
     },
     {
       "id": "test/test-project/deep2.ts->test/test-project/nested2.ts",
-      "from": "test/test-project/deep2.ts",
-      "to": "test/test-project/nested2.ts",
+      "source": "test/test-project/deep2.ts",
+      "target": "test/test-project/nested2.ts",
       "usedExports": [
         "nested2",
         "nested3"
@@ -95,64 +95,64 @@
     },
     {
       "id": "test/test-project/index.ts->test/test-project/deep2.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/deep2.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/deep2.ts",
       "usedExports": [
         "deep2"
       ]
     },
     {
       "id": "test/test-project/helper/helper.ts->test/test-project/deep.ts",
-      "from": "test/test-project/helper/helper.ts",
-      "to": "test/test-project/deep.ts",
+      "source": "test/test-project/helper/helper.ts",
+      "target": "test/test-project/deep.ts",
       "usedExports": [
         "deep"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/helper/helper.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/helper/helper.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/helper/helper.ts",
       "usedExports": [
         "helper"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/default.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/default.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/default.ts",
       "usedExports": [
         "defaultSum"
       ]
     },
     {
       "id": "test/test-project/nested/use-module-outside-dir.ts->test/test-project/nested.ts",
-      "from": "test/test-project/nested/use-module-outside-dir.ts",
-      "to": "test/test-project/nested.ts",
+      "source": "test/test-project/nested/use-module-outside-dir.ts",
+      "target": "test/test-project/nested.ts",
       "usedExports": [
         "nested"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/nested/use-module-outside-dir.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/nested/use-module-outside-dir.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/nested/use-module-outside-dir.ts",
       "usedExports": [
         "useModuleOutsideDir"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/usedInTypeAndCode.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/usedInTypeAndCode.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/usedInTypeAndCode.ts",
       "usedExports": [
         "usedInTypeAndCode"
       ]
     },
     {
       "id": "test/test-project/index.ts->test/test-project/multiExport.ts",
-      "from": "test/test-project/index.ts",
-      "to": "test/test-project/multiExport.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/multiExport.ts",
       "usedExports": [
         "something",
         "something2"
