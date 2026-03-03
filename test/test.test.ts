@@ -7,12 +7,18 @@ import { buildTree, getFilesInfo, getProjectTreeByFolder, getTreeByFolder } from
 import { getTreeByFile } from '../src/fileTree';
 
 import folderTreeMock from './mock/folder-tree.json';
+import fileGraphMock from './mock/file-graph.json';
 import folderInfoMock from './mock/folder-info.json';
 import folderDeepTreeMock from './mock/folder-deep-tree.json';
 import nestedFolderDeepTreeMock from './mock/nested-folder-deep-tree.json';
 
 import fileTreeMock from './mock/file-tree.json';
 import fileMetaTreeMock from './mock/file-additional-tree.json';
+import { getGraphByFile } from '../src';
+import fs from 'node:fs';
+import { stringify, parse } from 'flatted';
+import superjson from 'superjson';
+import * as devalue from 'devalue';
 
 describe('ts-tree', () => {
   it('getFilesInfo', () => {
@@ -64,5 +70,15 @@ describe('ts-tree', () => {
       const withoutParentIds = remove(withoutIds, '**.parentId');
       expect(withoutParentIds).toEqual(fileMetaTreeMock);
     });
+  });
+
+  it('getGraphByFile', () => {
+    const graph = getGraphByFile('test/test-project/index.ts');
+    // console.log('graph', graph);
+     ['**.from', '**.to', '**.id'].forEach((path) => remove(graph, path, { mutate: true }));
+     ['**.from', '**.to', '**.id'].forEach((path) => remove(fileGraphMock, path, { mutate: true }));
+    console.log('withoutIds', graph);
+    fs.writeFileSync('./test/graph.json', superjson.stringify(graph));
+    expect(graph).toEqual(fileGraphMock.json);
   });
 });

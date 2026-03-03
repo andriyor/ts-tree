@@ -12,13 +12,24 @@ npm i @andriyorehov/ts-graph
 
 ## Usage
 
-Per file
+Per file (tree structure)
 
 ```ts
 import { getTreeByFile } from '@andriyorehov/ts-graph';
 
 const tree = getTreeByFile('filePath.ts');
 console.dir(tree, { depth: null });
+```
+
+Per file (graph structure with circular dependency handling)
+
+```ts
+import { getGraphByFile } from '@andriyorehov/ts-graph';
+
+const graph = getGraphByFile('filePath.ts');
+console.log('Nodes:', graph.nodes);
+console.log('Edges:', graph.edges);
+console.log('Root ID:', graph.rootId);
 ```
 
 Per folder
@@ -74,6 +85,7 @@ console.dir(tree, { depth: null });
 - [x] depth number
 - [x] flat tree for folder
 - [ ] parent in flat tree
+- [x] return graph with edges and nodes
 
 ## Tech Debt
 
