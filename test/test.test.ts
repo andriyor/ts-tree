@@ -74,11 +74,8 @@ describe('ts-tree', () => {
 
   it('getGraphByFile', () => {
     const graph = getGraphByFile('test/test-project/index.ts');
-    // console.log('graph', graph);
-     ['**.from', '**.to', '**.id'].forEach((path) => remove(graph, path, { mutate: true }));
-     ['**.from', '**.to', '**.id'].forEach((path) => remove(fileGraphMock, path, { mutate: true }));
-    console.log('withoutIds', graph);
-    fs.writeFileSync('./test/graph.json', superjson.stringify(graph));
-    expect(graph).toEqual(fileGraphMock.json);
+    console.log('graph', graph);
+    // fs.writeFileSync('./mock/file-graph.json', superjson.stringify(graph));
+    expect(superjson.stringify(graph)).toEqual(superjson.parse(fileGraphMock));
   });
 });

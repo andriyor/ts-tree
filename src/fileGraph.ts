@@ -1,5 +1,4 @@
 import path from 'node:path';
-import crypto, { UUID } from 'node:crypto';
 
 import { Project, SyntaxKind, Node } from 'ts-morph';
 import findUp from 'find-up';
@@ -7,23 +6,23 @@ import findUp from 'find-up';
 import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
 
 export type FileNode = {
-  id: UUID;
+  id: string;
   path: string;
   name: string;
   meta?: unknown;
 };
 
 export type FileEdge = {
-  id: UUID;
-  from: UUID;
-  to: UUID;
+  id: string;
+  from: string;
+  to: string;
   usedExports: string[];
 };
 
 export type FileGraph = {
   nodes: Map<string, FileNode>;
   edges: FileEdge[];
-  rootId: UUID;
+  rootId: string;
 };
 
 const buildFileGraph = (
@@ -32,7 +31,7 @@ const buildFileGraph = (
   graph: FileGraph,
   additionalInfo: Record<string, unknown> = {},
   visited: Set<string> = new Set(),
-): UUID => {
+): string => {
   const sourceFile = project.addSourceFileAtPath(filePath);
 
   const currentFilePath = sourceFile.getFilePath();
@@ -47,7 +46,7 @@ const buildFileGraph = (
   const additionalFileInfo = additionalInfo[currentFilePath] ?? undefined;
 
   const fileNode: FileNode = {
-    id: crypto.randomUUID(),
+    id: relativeFilePath,
     path: relativeFilePath,
     name: baseName,
     meta: additionalFileInfo,
@@ -70,7 +69,7 @@ const buildFileGraph = (
       const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
       if (fileImport) {
         const importedRelativePath = path.relative(process.cwd(), fileImport);
-        let childNodeId: UUID;
+        let childNodeId: string;
 
         if (visited.has(importedRelativePath)) {
           // Circular dependency - use existing node
@@ -80,7 +79,7 @@ const buildFileGraph = (
         }
 
         graph.edges.push({
-          id: crypto.randomUUID(),
+          id: `${fileNode.id}->${childNodeId}`,
           from: fileNode.id,
           to: childNodeId,
           usedExports: [importName],
@@ -108,7 +107,7 @@ const buildFileGraph = (
 
       Object.entries(paths).forEach(([fileImport, importedNames]) => {
         const importedRelativePath = path.relative(process.cwd(), fileImport);
-        let childNodeId: UUID;
+        let childNodeId: string;
 
         if (visited.has(importedRelativePath)) {
           // Circular dependency - use existing node
@@ -123,7 +122,7 @@ const buildFileGraph = (
           existingEdge.usedExports.push(...importedNames);
         } else {
           graph.edges.push({
-            id: crypto.randomUUID(),
+            id: `${fileNode.id}->${childNodeId}`,
             from: fileNode.id,
             to: childNodeId,
             usedExports: importedNames,
@@ -147,11 +146,10 @@ export const getGraphByFile = (filePath: string, additionalInfo: Record<string, 
   const graph: FileGraph = {
     nodes: new Map(),
     edges: [],
-    rootId: '' as UUID,
+    rootId: '',
   };
 
-  const rootId = buildFileGraph(project, filePath, graph, additionalInfo);
-  graph.rootId = rootId;
+  graph.rootId = buildFileGraph(project, filePath, graph, additionalInfo);
 
   return graph;
 };

@@ -5,6 +5,7 @@ import { remove } from 'wild-wild-path';
 
 import { buildTree, getFilesInfo, getTreeByFolder } from '../src/folderTree';
 import { getTreeByFile } from '../src/fileTree';
+import { getGraphByFile } from '../src';
 
 const folderInfo = getFilesInfo('test/test-project/**/*.ts');
 const folderTree = buildTree(folderInfo);
@@ -37,3 +38,9 @@ const nestedFolderDeepTreeNested = getTreeByFolder('test/test-project/nested/**/
 const withoutIdsTreeNested = remove(nestedFolderDeepTreeNested, '**.id');
 const withoutParentIdsTreeNested = remove(withoutIdsTreeNested, '**.parentId');
 fs.writeFileSync('./test/mock/nested-folder-deep-tree.json', JSON.stringify(withoutParentIdsTreeNested, null, 2));
+
+
+import superjson from 'superjson';
+
+const graph = getGraphByFile('test/test-project/index.ts');
+fs.writeFileSync('./test/mock/file-graph.json', superjson.stringify(graph));
