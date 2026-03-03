@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-import { Project, SyntaxKind, Node } from 'ts-morph';
+import { Node, Project, SyntaxKind } from 'ts-morph';
 import findUp from 'find-up';
 
 import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
@@ -17,6 +17,12 @@ export type FileEdge = {
   from: string;
   to: string;
   usedExports: string[];
+};
+
+export type FileGraphOutput = {
+  nodes: FileNode[];
+  edges: FileEdge[];
+  rootId: string;
 };
 
 export type FileGraph = {
@@ -135,7 +141,7 @@ const buildFileGraph = (
   return fileNode.id;
 };
 
-export const getGraphByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}): FileGraph => {
+export const getGraphByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}): FileGraphOutput => {
   const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: filePath });
   const project = new Project({
     skipAddingFilesFromTsConfig: false,
@@ -151,5 +157,8 @@ export const getGraphByFile = (filePath: string, additionalInfo: Record<string, 
 
   graph.rootId = buildFileGraph(project, filePath, graph, additionalInfo);
 
-  return graph;
+  return {
+    ...graph,
+    nodes: Object.values(graph.nodes),
+  };
 };
