@@ -178,6 +178,13 @@
         }
       ],
       "depth": 0
+    },
+    {
+      "path": "test/test-project/helper/unused.ts",
+      "name": "unused.ts",
+      "usedExports": [],
+      "children": [],
+      "depth": 0
     }
   ],
   "depth": 0,
@@ -282,6 +289,13 @@
     "test/test-project/index2.ts": {
       "path": "test/test-project/index2.ts",
       "name": "index2.ts",
+      "usedExports": [],
+      "children": [],
+      "depth": 0
+    },
+    "test/test-project/helper/unused.ts": {
+      "path": "test/test-project/helper/unused.ts",
+      "name": "unused.ts",
       "usedExports": [],
       "children": [],
       "depth": 0

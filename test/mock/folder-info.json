@@ -69,6 +69,11 @@
     ]
   },
   {
+    "path": "test/test-project/helper/unused.ts",
+    "name": "unused.ts",
+    "imports": []
+  },
+  {
     "path": "test/test-project/nested/one-usage.ts",
     "name": "one-usage.ts",
     "imports": []

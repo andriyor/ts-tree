@@ -108,6 +108,11 @@
           "children": []
         }
       ]
+    },
+    {
+      "path": "test/test-project/helper/unused.ts",
+      "name": "unused.ts",
+      "children": []
     }
   ]
 }

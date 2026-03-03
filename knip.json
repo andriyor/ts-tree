@@ -1,0 +1,4 @@
+{
+  "entry": ["index.{js,ts}", "src/index.{js,ts}", "test/test-project/index.{js,ts}"],
+  "project": ["**/*.{js,ts}"]
+}
