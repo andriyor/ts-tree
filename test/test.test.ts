@@ -14,11 +14,7 @@ import nestedFolderDeepTreeMock from './mock/nested-folder-deep-tree.json';
 
 import fileTreeMock from './mock/file-tree.json';
 import fileMetaTreeMock from './mock/file-additional-tree.json';
-import { getGraphByFile } from '../src';
-import fs from 'node:fs';
-import { stringify, parse } from 'flatted';
-import superjson from 'superjson';
-import * as devalue from 'devalue';
+import { findCascadingDeletes, getGraphByFile } from '../src';
 
 describe('ts-tree', () => {
   it('getFilesInfo', () => {
@@ -75,5 +71,14 @@ describe('ts-tree', () => {
   it('getGraphByFile', () => {
     const graph = getGraphByFile('test/test-project/index.ts');
     expect(graph).toEqual(fileGraphMock);
+  });
+
+  it('findCascadingDeletes', () => {
+    const files = findCascadingDeletes(fileGraphMock, 'test/test-project/nested/use-module-outside-dir.ts');
+    
+    expect(files).toEqual([
+      'test/test-project/nested/use-module-outside-dir.ts',
+      'test/test-project/nested/one-usage.ts',
+    ]);
   });
 });

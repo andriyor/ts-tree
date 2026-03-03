@@ -69,10 +69,16 @@
     ]
   },
   {
+    "path": "test/test-project/nested/one-usage.ts",
+    "name": "one-usage.ts",
+    "imports": []
+  },
+  {
     "path": "test/test-project/nested/use-module-outside-dir.ts",
     "name": "use-module-outside-dir.ts",
     "imports": [
-      "test/test-project/nested.ts"
+      "test/test-project/nested.ts",
+      "test/test-project/nested/one-usage.ts"
     ]
   }
 ]
