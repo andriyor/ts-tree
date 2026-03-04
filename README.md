@@ -80,6 +80,7 @@ console.dir(tree, { depth: null });
 - [x] return flat list to simplify processing
 - [ ] create separate method with flat structure and use getReferencingSourceFiles, include types, barrel files, styles
 - [ ] check barrel files handling for default import
+- [x] add info about import from a barrel file
 - [ ] circular dependencies handling?
 - [ ] how to get file deps with skipAddingFilesFromTsConfig: false, skipFileDependencyResolution: false,
 - [x] depth number
