@@ -34,7 +34,7 @@ const buildFileTree = (
 
   const additionalFileInfo = additionalInfo[currentFilePath] ?? undefined;
 
-  const fileTree: FileTree = {
+  const parentFileTree: FileTree = {
     id: crypto.randomUUID(),
     path: relativeFilePath,
     name: baseName,
@@ -44,7 +44,7 @@ const buildFileTree = (
     children: [],
     depth: depth,
   };
-  flatTree[fileTree.path] = { ...fileTree, children: [] };
+  flatTree[parentFileTree.path] = { ...parentFileTree, children: [] };
 
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
     const importClause = importDeclaration.getImportClause();
@@ -59,18 +59,18 @@ const buildFileTree = (
         const childFileTree = buildFileTree(
           project,
           fileImport,
-          fileTree.id,
+          parentFileTree.id,
           [importName],
           flatTree,
           additionalInfo,
           depth + 1,
         ).fileTree;
-        fileTree.children.push(childFileTree);
+        parentFileTree.children.push(childFileTree);
       }
     }
 
     if (Node.isNamedImports(namedBindings)) {
-      const paths: Record<string, string[]> = {};
+      const fileImportImportedNames: Record<string, string[]> = {};
       namedBindings.getElements().forEach((named) => {
         const nameNode = named.getNameNode();
         const importedName = nameNode.getText();
@@ -78,36 +78,37 @@ const buildFileTree = (
         definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
           if (!path.includes('node_modules') && path !== filePath && isValidNode(node)) {
-            if (paths[path]) {
-              paths[path].push(importedName);
+            if (fileImportImportedNames[path]) {
+              fileImportImportedNames[path].push(importedName);
             } else {
-              paths[path] = [importedName];
+              fileImportImportedNames[path] = [importedName];
             }
           }
         });
       });
 
-      Object.entries(paths).forEach(([fileImport, importedNames]) => {
+      Object.entries(fileImportImportedNames).forEach(([fileImport, importedNames]) => {
         const childFileTree = buildFileTree(
           project,
           fileImport,
-          fileTree.id,
+          parentFileTree.id,
           importedNames,
           flatTree,
           additionalInfo,
           depth + 1,
         ).fileTree;
+        // update exports in case of import from the same file in other line
         // TODO: optimize this?
-        const sameIndex = fileTree.children.findIndex(child => child.path === childFileTree.path);
-        if (sameIndex !== -1) {
-          fileTree.children[sameIndex].usedExports.push(...childFileTree.usedExports)
+        const sameChildIndex = parentFileTree.children.findIndex(child => child.path === childFileTree.path);
+        if (sameChildIndex !== -1) {
+          parentFileTree.children[sameChildIndex].usedExports.push(...childFileTree.usedExports)
         } else {
-          fileTree.children.push(childFileTree);
+          parentFileTree.children.push(childFileTree);
         }
       });
     }
   });
-  return { fileTree, flatTree };
+  return { fileTree: parentFileTree, flatTree };
 };
 
 export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
