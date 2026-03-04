@@ -31,6 +31,11 @@
       "name": "helper.ts"
     },
     {
+      "id": "test/test-project/helper/fromBarrel.ts",
+      "path": "test/test-project/helper/fromBarrel.ts",
+      "name": "fromBarrel.ts"
+    },
+    {
       "id": "test/test-project/default.ts",
       "path": "test/test-project/default.ts",
       "name": "default.ts"
@@ -125,6 +130,14 @@
       "target": "test/test-project/helper/helper.ts",
       "usedExports": [
         "helper"
+      ]
+    },
+    {
+      "id": "test/test-project/index.ts->test/test-project/helper/fromBarrel.ts",
+      "source": "test/test-project/index.ts",
+      "target": "test/test-project/helper/fromBarrel.ts",
+      "usedExports": [
+        "fromBarrel"
       ]
     },
     {

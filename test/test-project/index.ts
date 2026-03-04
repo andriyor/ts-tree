@@ -1,6 +1,6 @@
 import { deep } from './deep';
 import { deep2 } from './deep2';
-import { helper } from './helper';
+import { helper, fromBarrel } from './helper';
 import { User } from './type';
 import { KeyPair } from './interface';
 import { Direction } from './enum';
@@ -46,3 +46,4 @@ console.log(testProjectCode);
 console.log(usedInTypeAndCode);
 console.log(something);
 console.log(something2);
+console.log(fromBarrel);

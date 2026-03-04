@@ -61,6 +61,11 @@
           ]
         },
         {
+          "path": "test/test-project/helper/fromBarrel.ts",
+          "name": "fromBarrel.ts",
+          "children": []
+        },
+        {
           "path": "test/test-project/default.ts",
           "name": "default.ts",
           "children": [
@@ -114,11 +119,6 @@
           "children": []
         }
       ]
-    },
-    {
-      "path": "test/test-project/helper/fromBarrel.ts",
-      "name": "fromBarrel.ts",
-      "children": []
     },
     {
       "path": "test/test-project/helper/unused.ts",

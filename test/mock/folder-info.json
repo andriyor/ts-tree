@@ -34,6 +34,7 @@
       "test/test-project/deep.ts",
       "test/test-project/deep2.ts",
       "test/test-project/helper/helper.ts",
+      "test/test-project/helper/fromBarrel.ts",
       "test/test-project/default.ts",
       "test/test-project/nested/use-module-outside-dir.ts",
       "test/test-project/usedInTypeAndCode.ts",

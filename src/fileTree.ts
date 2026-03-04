@@ -35,6 +35,7 @@ const buildFileTree = ({
   flatTree = {},
   additionalInfo = {},
   depth = 0,
+  showBarrel,
 }: {
   project: Project;
   filePath: string;
@@ -44,6 +45,7 @@ const buildFileTree = ({
   flatTree?: Record<string, FileTree>;
   additionalInfo?: Record<string, unknown>;
   depth?: number;
+  showBarrel: boolean;
 }): OutputTree => {
   const sourceFile = project.getSourceFileOrThrow(filePath);
 
@@ -92,10 +94,13 @@ const buildFileTree = ({
           flatTree,
           additionalInfo,
           depth: depth + 1,
+          showBarrel,
         }).fileTree;
         parentFileTree.children.push(childFileTree);
       }
     }
+
+    let fromBarrel;
 
     if (Node.isNamedImports(namedBindings)) {
       const fileImportImportedNames: Record<string, { name: string; fromBarrel?: boolean }[]> = {};
@@ -106,8 +111,7 @@ const buildFileTree = ({
         definitionNodes.forEach((node) => {
           const path = node.getSourceFile().getFilePath();
           if (!path.includes('node_modules') && path !== filePath && isValidNode(node)) {
-            const fromBarrel = path !== fileImport ? true : undefined;
-            console.log('isFromBarrel', fromBarrel);
+            fromBarrel = path !== fileImport ? true : undefined;
             // handle multiple named imports from the same file in the same line
             // import { nested2, nested3 } from './nested2';
             if (fileImportImportedNames[path]) {
@@ -127,10 +131,10 @@ const buildFileTree = ({
         });
       });
 
-      if (false) {
+      if (showBarrel && fromBarrel && fileImport) {
         parentFileTree.children.push({
           id: crypto.randomUUID(),
-          path: fileImport!,
+          path: fileImport,
           name: 'index.ts',
           isBarrel: true,
           range: [pos, end],
@@ -145,6 +149,7 @@ const buildFileTree = ({
               flatTree,
               additionalInfo,
               depth: depth + 1,
+              showBarrel,
             }).fileTree;
           }),
           depth: 3,
@@ -160,6 +165,7 @@ const buildFileTree = ({
             flatTree,
             additionalInfo,
             depth: depth + 1,
+            showBarrel,
           }).fileTree;
           // prevent new children creation and update exports in case of import from the same file in other line,
           // its produce uncorrected range since it takes range from last import
@@ -177,7 +183,7 @@ const buildFileTree = ({
   return { fileTree: parentFileTree, flatTree };
 };
 
-export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}) => {
+export const getTreeByFile = (filePath: string, additionalInfo: Record<string, unknown> = {}, showBarrel = false) => {
   const tsConfigFilePath = findUp.sync('tsconfig.json', { cwd: filePath });
   const project = new Project({
     skipAddingFilesFromTsConfig: false, // true can cause recursion
@@ -192,5 +198,6 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
     usedExports: [],
     flatTree: {},
     additionalInfo,
+    showBarrel,
   });
 };
