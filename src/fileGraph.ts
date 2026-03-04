@@ -3,7 +3,7 @@ import path from 'node:path';
 import { Node, Project, SyntaxKind } from 'ts-morph';
 import findUp from 'find-up';
 
-import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
+import { isValidNode } from './shared';
 
 export type FileNode = {
   id: string;
@@ -70,9 +70,7 @@ const buildFileGraph = (
     // handle default import
     if (importClause && namedBindings === undefined) {
       const importName = importClause.getText();
-      const importPath = importDeclaration.getModuleSpecifier().getText();
-      const unquotedPath = trimQuotes(importPath);
-      const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
+      const fileImport = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
       if (fileImport) {
         const importedRelativePath = path.relative(process.cwd(), fileImport);
         let childNodeId: string;

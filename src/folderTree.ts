@@ -4,7 +4,7 @@ import crypto from 'node:crypto';
 import findUp from 'find-up';
 import { Project, SourceFile, Node, SyntaxKind } from 'ts-morph';
 
-import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
+import { isValidNode } from './shared';
 import { FileTree, getTreeByFile } from './fileTree';
 
 type FileInfo = {
@@ -72,9 +72,7 @@ const getImports = (sourceFile: SourceFile, project: Project) => {
     // handle default import
     // https://github.com/dsherret/ts-morph/issues/1507
     if (importClause && namedBindings === undefined) {
-      const importPath = importDeclaration.getModuleSpecifier().getText();
-      const unquotedPath = trimQuotes(importPath);
-      const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
+      const fileImport = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
       if (fileImport) {
         const relativeFilePath = path.relative(process.cwd(), fileImport);
         fileInfo.imports.push(relativeFilePath);

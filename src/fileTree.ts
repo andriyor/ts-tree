@@ -4,7 +4,7 @@ import crypto, { UUID } from 'node:crypto';
 import { Project, SyntaxKind, Node } from 'ts-morph';
 import findUp from 'find-up';
 
-import { getResolvedFileName, isValidNode, trimQuotes } from './shared';
+import { isValidNode } from './shared';
 
 export type FileTree = {
   id: UUID;
@@ -54,9 +54,7 @@ const buildFileTree = (
     // https://github.com/dsherret/ts-morph/issues/1507
     if (importClause && namedBindings === undefined) {
       const importName = importClause.getText();
-      const importPath = importDeclaration.getModuleSpecifier().getText();
-      const unquotedPath = trimQuotes(importPath);
-      const fileImport = getResolvedFileName(unquotedPath, currentFilePath, project.compilerOptions.get());
+      const fileImport = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
       if (fileImport) {
         const childFileTree = buildFileTree(
           project,
