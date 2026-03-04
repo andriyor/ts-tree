@@ -18,13 +18,15 @@ export type FileTree = {
 };
 
 const buildFileTree = (
-  project: Project,
-  filePath: string,
-  parentId?: UUID,
-  usedExports: string[] = [],
-  flatTree: Record<string, FileTree> = {},
-  additionalInfo: Record<string, unknown> = {},
-  depth = 0,
+  { project, filePath, parentId, usedExports = [], flatTree = {}, additionalInfo = {}, depth = 0 }: {
+    project: Project,
+    filePath: string,
+    parentId?: UUID,
+    usedExports?: string[],
+    flatTree?: Record<string, FileTree>,
+    additionalInfo?: Record<string, unknown>,
+    depth?: number
+  },
 ) => {
   const sourceFile = project.addSourceFileAtPath(filePath);
 
@@ -57,13 +59,15 @@ const buildFileTree = (
       const fileImport = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
       if (fileImport) {
         const childFileTree = buildFileTree(
-          project,
-          fileImport,
-          parentFileTree.id,
-          [importName],
-          flatTree,
-          additionalInfo,
-          depth + 1,
+          {
+            project: project,
+            filePath: fileImport,
+            parentId: parentFileTree.id,
+            usedExports: [importName],
+            flatTree: flatTree,
+            additionalInfo: additionalInfo,
+            depth: depth + 1
+          },
         ).fileTree;
         parentFileTree.children.push(childFileTree);
       }
@@ -89,13 +93,15 @@ const buildFileTree = (
 
       Object.entries(fileImportImportedNames).forEach(([fileImport, importedNames]) => {
         const childFileTree = buildFileTree(
-          project,
-          fileImport,
-          parentFileTree.id,
-          importedNames,
-          flatTree,
-          additionalInfo,
-          depth + 1,
+          {
+            project: project,
+            filePath: fileImport,
+            parentId: parentFileTree.id,
+            usedExports: importedNames,
+            flatTree: flatTree,
+            additionalInfo: additionalInfo,
+            depth: depth + 1
+          },
         ).fileTree;
         // update exports in case of import from the same file in other line
         // TODO: optimize this?
@@ -119,5 +125,12 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
     tsConfigFilePath,
   });
 
-  return buildFileTree(project, filePath, undefined, [], {}, additionalInfo);
+  return buildFileTree({
+    project: project,
+    filePath: filePath,
+    parentId: undefined,
+    usedExports: [],
+    flatTree: {},
+    additionalInfo: additionalInfo
+  });
 };
