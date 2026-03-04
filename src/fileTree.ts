@@ -60,12 +60,12 @@ const buildFileTree = (
       if (fileImport) {
         const childFileTree = buildFileTree(
           {
-            project: project,
+            project,
             filePath: fileImport,
             parentId: parentFileTree.id,
             usedExports: [importName],
-            flatTree: flatTree,
-            additionalInfo: additionalInfo,
+            flatTree,
+            additionalInfo,
             depth: depth + 1
           },
         ).fileTree;
@@ -94,12 +94,12 @@ const buildFileTree = (
       Object.entries(fileImportImportedNames).forEach(([fileImport, importedNames]) => {
         const childFileTree = buildFileTree(
           {
-            project: project,
+            project,
             filePath: fileImport,
             parentId: parentFileTree.id,
             usedExports: importedNames,
-            flatTree: flatTree,
-            additionalInfo: additionalInfo,
+            flatTree,
+            additionalInfo,
             depth: depth + 1
           },
         ).fileTree;
@@ -126,11 +126,11 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
   });
 
   return buildFileTree({
-    project: project,
-    filePath: filePath,
+    project,
+    filePath,
     parentId: undefined,
     usedExports: [],
     flatTree: {},
-    additionalInfo: additionalInfo
+    additionalInfo
   });
 };
