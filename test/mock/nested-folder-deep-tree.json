@@ -11,6 +11,10 @@
         {
           "path": "test/test-project/nested.ts",
           "name": "nested.ts",
+          "range": [
+            0,
+            35
+          ],
           "usedExports": [
             {
               "name": "nested"
@@ -22,6 +26,10 @@
         {
           "path": "test/test-project/nested/one-usage.ts",
           "name": "one-usage.ts",
+          "range": [
+            35,
+            75
+          ],
           "usedExports": [
             {
               "name": "oneUsage"
@@ -46,6 +54,10 @@
     "test/test-project/nested.ts": {
       "path": "test/test-project/nested.ts",
       "name": "nested.ts",
+      "range": [
+        0,
+        35
+      ],
       "usedExports": [
         {
           "name": "nested"
@@ -57,6 +69,10 @@
     "test/test-project/nested/one-usage.ts": {
       "path": "test/test-project/nested/one-usage.ts",
       "name": "one-usage.ts",
+      "range": [
+        35,
+        75
+      ],
       "usedExports": [
         {
           "name": "oneUsage"

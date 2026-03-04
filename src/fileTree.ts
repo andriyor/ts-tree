@@ -14,15 +14,23 @@ export type FileTree = {
   path: string;
   name: string;
   meta?: unknown;
+  range?: [number, number];
+  isBarrel?: boolean;
   usedExports: UsedExport[];
   children: FileTree[];
   depth: number;
+};
+
+export type OutputTree = {
+  fileTree: FileTree;
+  flatTree: Record<string, FileTree>;
 };
 
 const buildFileTree = ({
   project,
   filePath,
   parentId,
+  range,
   usedExports = [],
   flatTree = {},
   additionalInfo = {},
@@ -31,12 +39,13 @@ const buildFileTree = ({
   project: Project;
   filePath: string;
   parentId?: UUID;
+  range?: [number, number];
   usedExports?: UsedExport[];
   flatTree?: Record<string, FileTree>;
   additionalInfo?: Record<string, unknown>;
   depth?: number;
-}) => {
-  const sourceFile = project.addSourceFileAtPath(filePath);
+}): OutputTree => {
+  const sourceFile = project.getSourceFileOrThrow(filePath);
 
   const currentFilePath = sourceFile.getFilePath();
   const relativeFilePath = path.relative(process.cwd(), currentFilePath);
@@ -49,6 +58,7 @@ const buildFileTree = ({
     path: relativeFilePath,
     name: baseName,
     parentId,
+    range,
     meta: additionalFileInfo,
     usedExports: usedExports,
     children: [],
@@ -57,6 +67,9 @@ const buildFileTree = ({
   flatTree[parentFileTree.path] = { ...parentFileTree, children: [] };
 
   sourceFile.getChildrenOfKind(SyntaxKind.ImportDeclaration).forEach((importDeclaration) => {
+    const pos = importDeclaration.getPos();
+    const end = importDeclaration.getEnd();
+
     const importClause = importDeclaration.getImportClause();
     const namedBindings = importClause?.getNamedBindings();
     const fileImport = importDeclaration.getModuleSpecifierSourceFile()?.getFilePath();
@@ -70,9 +83,12 @@ const buildFileTree = ({
           project,
           filePath: fileImport,
           parentId: parentFileTree.id,
-          usedExports: [{
-            name: importName
-          }],
+          range: [pos, end],
+          usedExports: [
+            {
+              name: importName,
+            },
+          ],
           flatTree,
           additionalInfo,
           depth: depth + 1,
@@ -91,18 +107,19 @@ const buildFileTree = ({
           const path = node.getSourceFile().getFilePath();
           if (!path.includes('node_modules') && path !== filePath && isValidNode(node)) {
             const fromBarrel = path !== fileImport ? true : undefined;
+            console.log('isFromBarrel', fromBarrel);
             // handle multiple named imports from the same file in the same line
             // import { nested2, nested3 } from './nested2';
             if (fileImportImportedNames[path]) {
               fileImportImportedNames[path].push({
                 name: importedName,
-                fromBarrel,
+                fromBarrel: fromBarrel,
               });
             } else {
               fileImportImportedNames[path] = [
                 {
                   name: importedName,
-                  fromBarrel,
+                  fromBarrel: fromBarrel,
                 },
               ];
             }
@@ -110,25 +127,51 @@ const buildFileTree = ({
         });
       });
 
-      Object.entries(fileImportImportedNames).forEach(([fileImport, importedNames]) => {
-        const childFileTree = buildFileTree({
-          project,
-          filePath: fileImport,
-          parentId: parentFileTree.id,
-          usedExports: importedNames,
-          flatTree,
-          additionalInfo,
-          depth: depth + 1,
-        }).fileTree;
-        // update exports in case of import from the same file in other line
-        // TODO: optimize this?
-        const sameChildIndex = parentFileTree.children.findIndex((child) => child.path === childFileTree.path);
-        if (sameChildIndex !== -1) {
-          parentFileTree.children[sameChildIndex].usedExports.push(...childFileTree.usedExports);
-        } else {
-          parentFileTree.children.push(childFileTree);
-        }
-      });
+      if (false) {
+        parentFileTree.children.push({
+          id: crypto.randomUUID(),
+          path: fileImport!,
+          name: 'index.ts',
+          isBarrel: true,
+          range: [pos, end],
+          usedExports: [],
+          children: Object.entries(fileImportImportedNames).map(([fileImport, importedNames]) => {
+            return buildFileTree({
+              project,
+              filePath: fileImport,
+              parentId: parentFileTree.id,
+              range: [pos, end],
+              usedExports: importedNames,
+              flatTree,
+              additionalInfo,
+              depth: depth + 1,
+            }).fileTree;
+          }),
+          depth: 3,
+        });
+      } else {
+        Object.entries(fileImportImportedNames).forEach(([fileImport, importedNames]) => {
+          const childFileTree = buildFileTree({
+            project,
+            filePath: fileImport,
+            parentId: parentFileTree.id,
+            range: [pos, end],
+            usedExports: importedNames,
+            flatTree,
+            additionalInfo,
+            depth: depth + 1,
+          }).fileTree;
+          // prevent new children creation and update exports in case of import from the same file in other line,
+          // its produce uncorrected range since it takes range from last import
+          // TODO: optimize this?
+          const sameChildIndex = parentFileTree.children.findIndex((child) => child.path === childFileTree.path);
+          if (sameChildIndex !== -1) {
+            parentFileTree.children[sameChildIndex].usedExports.push(...childFileTree.usedExports);
+          } else {
+            parentFileTree.children.push(childFileTree);
+          }
+        });
+      }
     }
   });
   return { fileTree: parentFileTree, flatTree };
@@ -148,6 +191,6 @@ export const getTreeByFile = (filePath: string, additionalInfo: Record<string, u
     parentId: undefined,
     usedExports: [],
     flatTree: {},
-    additionalInfo
+    additionalInfo,
   });
 };

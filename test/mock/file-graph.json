@@ -36,6 +36,11 @@
       "name": "default.ts"
     },
     {
+      "id": "test/test-project/importIndefault.ts",
+      "path": "test/test-project/importIndefault.ts",
+      "name": "importIndefault.ts"
+    },
+    {
       "id": "test/test-project/nested/use-module-outside-dir.ts",
       "path": "test/test-project/nested/use-module-outside-dir.ts",
       "name": "use-module-outside-dir.ts"
@@ -120,6 +125,14 @@
       "target": "test/test-project/helper/helper.ts",
       "usedExports": [
         "helper"
+      ]
+    },
+    {
+      "id": "test/test-project/default.ts->test/test-project/importIndefault.ts",
+      "source": "test/test-project/default.ts",
+      "target": "test/test-project/importIndefault.ts",
+      "usedExports": [
+        "importInDefault"
       ]
     },
     {

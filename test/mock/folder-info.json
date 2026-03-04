@@ -18,6 +18,13 @@
   {
     "path": "test/test-project/default.ts",
     "name": "default.ts",
+    "imports": [
+      "test/test-project/importIndefault.ts"
+    ]
+  },
+  {
+    "path": "test/test-project/importIndefault.ts",
+    "name": "importIndefault.ts",
     "imports": []
   },
   {
@@ -59,6 +66,11 @@
   {
     "path": "test/test-project/usedInTypeAndCode.ts",
     "name": "usedInTypeAndCode.ts",
+    "imports": []
+  },
+  {
+    "path": "test/test-project/helper/fromBarrel.ts",
+    "name": "fromBarrel.ts",
     "imports": []
   },
   {
